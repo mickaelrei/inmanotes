@@ -9,11 +9,15 @@ from geral.config import *
 from modelos.nota import Nota
 from modelos.tarefa import Tarefa
 from modelos.lista_tarefa import ListaTarefa
+from modelos.cargo import Cargo
+from modelos.usuario import Usuario
 
 classes = {
     "nota": Nota,
     "tarefa": Tarefa,
-    "lista_tarefa": ListaTarefa
+    "listatarefa": ListaTarefa,
+    "cargo": Cargo,
+    "usuario": Usuario
 }
 
 @app.route("/listar/<string:classe>")
@@ -26,7 +30,7 @@ def listar(classe: str):
             "detalhes": "Classe não encontrada"
         })
     else:
-        dados = [p.json() for p in db.session.Query(classes[classe]).all()]
+        dados = [p.json() for p in db.session.query(classes[classe.lower()]).all()]
         resposta.update({"detalhes": dados})
     
     resposta = jsonify(resposta)

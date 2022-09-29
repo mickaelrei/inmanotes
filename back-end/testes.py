@@ -2,6 +2,8 @@ from geral.config import *
 from modelos.nota import Nota
 from modelos.tarefa import Tarefa
 from modelos.lista_tarefa import ListaTarefa
+from modelos.usuario import Usuario
+from modelos.cargo import Cargo
 from datetime import datetime
 import os
 
@@ -13,10 +15,22 @@ if __name__ == "__main__":
     # Cria tabelas
     db.create_all()
 
+    # Cargos
+    cargo_usuario = Cargo(nome="usuario", descricao="Usuário comum, com permissão para criar, editar e excluir suas próprias notas e listas de tarefa")
+    cargo_administrador = Cargo(nome="administrador", descricao="Adminstrador, com permissão de usuário comum além de poder acessar e excluir notas e listas de tarefa de outros usuários")
+    db.session.add(cargo_usuario)
+    db.session.add(cargo_administrador)
+
+    # Usuario 1
+    usuario1 = Usuario(nome_usuario="mickael_rei", nome_display="Mickael Doze", senha="senhaforte123", cargo=cargo_usuario)
+    db.session.add(usuario1)
+    
+    # Nota
     nota = Nota(nome="teste", titulo="Testando", conteudo="testando classe nota.\n\nApenas forte",
-                data_criacao=datetime.now())
+                data_criacao=datetime.now(), usuario=usuario1)
     db.session.add(nota)
 
+    # Lista 1: compras
     compras = [
         "Banana",
         "Leite",
@@ -26,12 +40,25 @@ if __name__ == "__main__":
         "Aveia",
         "Whey"
     ]
-    compras_obj = []
-    lista_tarefa = ListaTarefa(titulo="Lista de compras")
+    lista_tarefa_compras = ListaTarefa(titulo="Lista de compras", usuario=usuario1)
+    db.session.add(lista_tarefa_compras)
+
     for compra in compras:
-        tarefa = Tarefa(conteudo=compra, concluido=True, lista_tarefa=lista_tarefa)
-        # compras_obj.append(tarefa)
+        tarefa = Tarefa(conteudo=compra, lista_tarefa=lista_tarefa_compras)
         db.session.add(tarefa)
 
-    db.session.add(lista_tarefa)
+
+    # Lista 2: atividades
+    lista_tarefa_atividades = ListaTarefa(titulo="Lista de Atividades", usuario=usuario1)
+    db.session.add(lista_tarefa_atividades)
+
+    atividades = [
+        "Trabalho Evolução",
+        "Exercícios Matemática",
+        "Pesquisar sobre vagas de emprego"
+    ]
+    for atv in atividades:
+        tarefa = Tarefa(conteudo=atv, lista_tarefa=lista_tarefa_atividades)
+        db.session.add(tarefa)
+
     db.session.commit()

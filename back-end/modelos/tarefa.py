@@ -9,6 +9,8 @@ class Tarefa(db.Model):
 
     def json(self) -> dict:
         return {
+            "id": self.id,
             "conteudo": self.conteudo,
-            "concluido": self.concluido
+            "concluido": self.concluido,
+            "lista_tarefa_id": self.lista_tarefa_id,
         }
