@@ -27,7 +27,7 @@ def listar(classe: str):
     if not classe.lower() in classes.keys():
         resposta.update({
             "resultado": "erro",
-            "detalhes": "Classe não encontrada"
+            "detalhes": "Classe nao encontrada"
         })
     else:
         dados = [p.json() for p in db.session.query(classes[classe.lower()]).all()]

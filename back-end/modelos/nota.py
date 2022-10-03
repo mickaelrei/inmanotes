@@ -3,7 +3,7 @@ from modelos.usuario import *
 
 class Nota(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    data_criacao = db.Column(db.DateTime)
+    data_criacao = db.Column(db.DateTime, nullable=False)
     nome = db.Column(db.String(254), nullable=False)
     titulo = db.Column(db.String(254), nullable=False)
     conteudo = db.Column(db.Text)
