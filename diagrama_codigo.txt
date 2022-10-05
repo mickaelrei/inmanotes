@@ -27,6 +27,7 @@ class ListaTarefa {
 class Usuario {
   +String nome_usuario
   +String nome_display
+  +DateTime data_criacao
   +String senha
   +String foto
   +Cargo cargo
