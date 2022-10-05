@@ -22,7 +22,7 @@ classes = {
 }
 
 @app.route("/inserir/<string:classe>", methods=["POST"])
-def inserir(classe):
+def inserir(classe: str):
     resposta = {"resultado": "ok", "detalhes": "ok"}
 
     if not classe.lower() in classes.keys():
@@ -35,7 +35,7 @@ def inserir(classe):
         dados = request.get_json()
 
         # Adicionar data atual para notas e listas de tarefa
-        if classe.lower() in ("nota", "listatarefa"):
+        if classe.lower() in ("nota", "listatarefa", "usuario"):
             dados.update({"data_criacao": datetime.now()})
 
         # Converter campo "concluido" para booleano

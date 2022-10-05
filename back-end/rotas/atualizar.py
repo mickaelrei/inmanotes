@@ -45,7 +45,7 @@ campos_modificaveis = {
 }
 
 @app.route("/atualizar/<string:classe>", methods=["POST"])
-def atualizar(classe):
+def atualizar(classe: str):
     resposta = {"resultado": "ok", "detalhes": "ok"}
 
     if not classe.lower() in classes.keys():

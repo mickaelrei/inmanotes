@@ -6,6 +6,7 @@ from modelos.usuario import Usuario
 from modelos.cargo import Cargo
 from datetime import datetime
 import os
+from random import random
 
 if __name__ == "__main__":
     # Remover arquivo db
@@ -22,11 +23,12 @@ if __name__ == "__main__":
     db.session.add(cargo_administrador)
 
     # Usuario 1
-    usuario1 = Usuario(nome_usuario="mickael_rei", nome_display="Mickael Doze", senha="senhaforte123", cargo=cargo_usuario)
+    usuario1 = Usuario(nome_usuario="mickael_rei", nome_display="Mickael Doze", senha="senhaforte123",
+                       cargo=cargo_usuario, data_criacao=datetime.now())
     db.session.add(usuario1)
     
     # Nota
-    nota = Nota(nome="teste", titulo="Testando", conteudo="testando classe nota.\n\nApenas forte",
+    nota = Nota(nome="teste", titulo="Testando", conteudo="testando classe nota. Texto base",
                 data_criacao=datetime.now(), usuario=usuario1)
     db.session.add(nota)
 
@@ -44,9 +46,8 @@ if __name__ == "__main__":
     db.session.add(lista_tarefa_compras)
 
     for compra in compras:
-        tarefa = Tarefa(conteudo=compra, lista_tarefa=lista_tarefa_compras)
+        tarefa = Tarefa(conteudo=compra, lista_tarefa=lista_tarefa_compras, concluido=random() > .5)
         db.session.add(tarefa)
-
 
     # Lista 2: atividades
     lista_tarefa_atividades = ListaTarefa(titulo="Lista de Atividades", usuario=usuario1, data_criacao=datetime.now())
@@ -58,7 +59,13 @@ if __name__ == "__main__":
         "Pesquisar sobre vagas de emprego"
     ]
     for atv in atividades:
-        tarefa = Tarefa(conteudo=atv, lista_tarefa=lista_tarefa_atividades)
+        tarefa = Tarefa(conteudo=atv, lista_tarefa=lista_tarefa_atividades, concluido=random() > .5)
         db.session.add(tarefa)
 
     db.session.commit()
+
+    # Printa os objetos criados
+    print(f"\n{usuario1}\n")
+    print(nota, "\n")
+    print(lista_tarefa_compras,"\n")
+    print(lista_tarefa_atividades,"\n")

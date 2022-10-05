@@ -7,6 +7,9 @@ class Tarefa(db.Model):
     concluido = db.Column(db.Boolean, default=False)
     lista_tarefa_id = db.Column(db.Integer, db.ForeignKey(ListaTarefa.id), nullable=False)
 
+    def __str__(self) -> str:
+        return f"ID: {self.id} ID da Lista de Tarefa: {self.lista_tarefa_id}, Conteúdo: {self.conteudo}, Conclúido: {self.concluido and '☑' or '☐'}"
+
     def json(self) -> dict:
         return {
             "id": self.id,

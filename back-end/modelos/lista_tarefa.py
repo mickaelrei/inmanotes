@@ -10,6 +10,14 @@ class ListaTarefa(db.Model):
 
     usuario_id = db.Column(db.Integer, db.ForeignKey(Usuario.id), nullable=False)
 
+    def __str__(self) -> str:
+        s = f"ID: {self.id} ID do usuário: {self.usuario_id}, Título: {self.titulo}, Data de criação: {self.data_criacao}. Tarefas:"
+
+        for tarefa in self.tarefas:
+            s += f"\n - {tarefa}"
+
+        return s
+
     def json(self) -> dict:
         obj = {
             "id": self.id,
