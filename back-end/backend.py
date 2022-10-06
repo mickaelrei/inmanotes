@@ -1,3 +1,7 @@
+import sys
+# Desativar criação das pastas __pycache__
+sys.dont_write_bytecode = True
+
 from geral.config import *
 from rotas.listar import *
 from rotas.inserir import *
