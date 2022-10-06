@@ -11,5 +11,6 @@ class Cargo(db.Model):
     def json(self) -> dict:
        return {
         "id": self.id,
-        "nome": self.nome
+        "nome": self.nome,
+        "descricao": self.descricao
        }

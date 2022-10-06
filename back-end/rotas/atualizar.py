@@ -1,9 +1,3 @@
-# from init import *
-# Incluir caminhos
-import sys
-sys.path.append('/home/aluno/inmanotes/back-end')
-sys.path.append('/home/aluno/inmanotes/back-end')
-
 # Importar config e classes
 from geral.config import *
 from modelos.nota import Nota
@@ -46,38 +40,48 @@ campos_modificaveis = {
 
 @app.route("/atualizar/<string:classe>", methods=["POST"])
 def atualizar(classe: str):
-    resposta = {"resultado": "ok", "detalhes": "ok"}
+    # resposta = {"resultado": "ok", "detalhes": "ok"}
+    detalhes = "ok"
 
     if not classe.lower() in classes.keys():
-        resposta.update({
-            "resultado": "erro",
-            "detalhes": "Classe nao encontrada"
-        })
+        detalhes = f"Classe {classe} não encontrada"
     else:
         # Pega dados
         dados = request.get_json()
         if not "id" in dados:
-            resposta.update({
-                "resultado": "erro",
-                "detalhes": "ID não incluso"
-            })
+            detalhes = "ID não incluso"
         else:
             obj = classes[classe.lower()].query.get(dados["id"])
             if obj is None:
-                resposta.update({
-                    "resultado": "erro",
-                    "detalhes": f"Objeto do tipo {classe.lower()} com ID {dados['id']} não encontrado"
-                })
+                detalhes = f"Objeto do tipo {classe} com ID {dados['id']} não encontrado"
             else:
+                # Atualiza os campos necessários
+                sucesso = True
                 for campo, novoDado in dados.items():
-                    if campo in campos_modificaveis[classe.lower()]:
-                        print(f"Campo: {campo}")
-                        obj[campo] = novoDado
+                    # Não atualizar o ID
+                    if campo == "id": continue
 
-                        # NAO SUPORTA ITEM ASSIGNMENT (OBJ[TAL] = TAL)
-                db.session.commit()
-        
-    resposta = jsonify(resposta)
+                    # Verifica se esse campo pode ser modificado
+                    if hasattr(obj, campo):
+                        if campo in campos_modificaveis[classe.lower()]:
+                            # Atualiza o campo
+                            obj.__setattr__(campo, novoDado)
+                        else:
+                            detalhes = f"Não é possível modificar o campo {campo} para objetos do tipo {classe}"
+                            sucesso = False
+                            break
+                    else:
+                        detalhes = f"Objeto do tipo {classe} não possui campo {campo}"
+                        sucesso = False
+                        break
+
+                if sucesso:
+                    db.session.commit()
+    
+    resposta = jsonify({
+        "resposta": "ok" if detalhes == "ok" else "erro",
+        "detalhes": detalhes
+    })
     resposta.headers.add("Access-Control-Allow-Origin", "*")
 
     return resposta
