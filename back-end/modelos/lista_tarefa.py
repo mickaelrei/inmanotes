@@ -4,7 +4,7 @@ from modelos.usuario import *
 
 class ListaTarefa(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    titulo = db.Column(db.String(254))
+    titulo = db.Column(db.String(254), nullable=False)
     tarefas = db.relationship("Tarefa", backref="lista_tarefa")
     data_criacao = db.Column(db.DateTime, nullable=False)
 
@@ -23,6 +23,7 @@ class ListaTarefa(db.Model):
             "id": self.id,
             "titulo": self.titulo,
             "data_criacao": self.data_criacao,
+            "usuario_id": self.usuario_id
         }
 
         # Lista de tarefas

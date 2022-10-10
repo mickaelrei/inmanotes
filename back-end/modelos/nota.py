@@ -6,7 +6,7 @@ class Nota(db.Model):
     data_criacao = db.Column(db.DateTime, nullable=False)
     nome = db.Column(db.String(254), nullable=False)
     titulo = db.Column(db.String(254), nullable=False)
-    conteudo = db.Column(db.Text)
+    conteudo = db.Column(db.Text, nullable=False)
 
     usuario_id = db.Column(db.Integer, db.ForeignKey(Usuario.id), nullable=False)
 
@@ -19,5 +19,6 @@ class Nota(db.Model):
             "data_criacao": self.data_criacao,
             "nome": self.nome,
             "titulo": self.titulo,
-            "conteudo": self.conteudo
+            "conteudo": self.conteudo,
+            "usuario_id": self.usuario_id
         }

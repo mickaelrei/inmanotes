@@ -15,6 +15,54 @@ classes = {
     "usuario": Usuario
 }
 
+camposObrigatorios = {
+    "nota": [
+        "nome",
+        "titulo",
+        "conteudo",
+        "usuario_id"
+    ],
+    "tarefa": [
+        "conteudo",
+        "lista_tarefa_id"
+    ],
+    "listatarefa": [
+        "titulo",
+        "usuario_id"
+    ],
+    "cargo": [
+        "nome",
+        "descricao"
+    ],
+    "usuario": [
+        "nome_usuario",
+        "nome_display",
+        "foto",
+        "senha",
+        "cargo_id"
+    ]
+}
+
+def verificarDados(classe: str, dados: dict) -> str:
+    '''
+    Verifica os dados e caso não estiver correto, retorna uma string com os detalhes
+    '''
+    if classe in ("nota", "lista_tarefa"):
+        query = db.session.query(Usuario).filter(Usuario.id == dados["usuario_id"])
+        if not query.first():
+            return f"Usuário com ID {dados['usuario_id']} não encontrado"
+    elif classe == "usuario":
+        query = db.session.query(Cargo).filter(Cargo.id == dados["cargo_id"])
+        if not query.first():
+            return f"Cargo com ID {dados['cargo_id']} não encontrado"
+    elif classe == "tarefa":
+        query = db.session.query(ListaTarefa).filter(ListaTarefa.id == dados["lista_tarefa_id"])
+        if not query.first():
+            return f"Lista de Tarefa com ID {dados['lista_tarefa_id']} não encontrado"
+
+    return "ok"
+
+
 @app.route("/inserir/<string:classe>", methods=["POST"])
 def inserir(classe: str):
     resposta = {"resultado": "ok", "detalhes": "ok"}
@@ -28,31 +76,53 @@ def inserir(classe: str):
         # Pega dados
         dados = request.get_json()
 
-        # Adicionar data atual para notas e listas de tarefa
-        if classe.lower() in ("nota", "listatarefa", "usuario"):
-            dados.update({"data_criacao": datetime.now()})
+        # Verifica se possui todos os campos obrigatórios
+        sucesso = True
+        for campo in camposObrigatorios[classe.lower()]:
+            if campo not in dados:
+                resposta.update({
+                    "resultado": "erro",
+                    "detalhes": f"Classe {classe.lower()} necessita do campo {campo}"
+                })
+                sucesso = False
+                break
+        
+        if sucesso:
+            # Verifica se os dados de referência a outras classes são válidos
+            resultado = verificarDados(classe.lower(), dados)
+            if resultado != "ok":
+                resposta.update({
+                    "resultado": "erro",
+                    "detalhes": resultado
+                })
+            else:
+                # Adicionar data atual para notas e listas de tarefa
+                if classe.lower() in ("nota", "listatarefa", "usuario"):
+                    dados.update({"data_criacao": datetime.now()})
 
-        # Converter campo "concluido" para booleano
-        if classe.lower() == "tarefa":
-            concluido = dados["concluido"]
-            print(type(concluido))
-            if type(concluido) != bool:
-                dados.update({"concluido": True if concluido.lower() == "true" else False})
+                # Converter campo "concluido" para booleano
+                if classe.lower() == "tarefa":
+                    if "concluido" in dados:
+                        concluido = dados["concluido"]
+                        if type(concluido) != bool:
+                            dados.update({"concluido": True if concluido.lower() == "true" else False})
+                    else:
+                        dados.update({"concluido": False})
 
-        # Tenta adicionar ao banco de dados
-        try:
-            obj = classes[classe](**dados)
-            db.session.add(obj)
-            db.session.commit()
+                # Tenta adicionar ao banco de dados
+                try:
+                    obj = classes[classe](**dados)
+                    db.session.add(obj)
+                    db.session.commit()
 
-            # Atualizar resposta
-            resposta.update({"detalhes": dados})
-        except TypeError as e:
-            # Em caso de erro, atualiza a resposta
-            resposta.update({
-                "resultado": "erro",
-                "detalhes": str(e)
-            })
+                    # Atualizar resposta
+                    resposta.update({"detalhes": dados})
+                except TypeError as e:
+                    # Em caso de erro, atualiza a resposta
+                    resposta.update({
+                        "resultado": "erro",
+                        "detalhes": str(e)
+                    })
     
     resposta = jsonify(resposta)
     resposta.headers.add("Access-Control-Allow-Origin", "*")

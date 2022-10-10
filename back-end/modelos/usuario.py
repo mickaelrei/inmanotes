@@ -3,11 +3,11 @@ from modelos.cargo import Cargo
 
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nome_usuario = db.Column(db.String(254))
-    nome_display = db.Column(db.String(254))
+    nome_usuario = db.Column(db.String(254), nullable=False)
+    nome_display = db.Column(db.String(254), nullable=False)
     data_criacao = db.Column(db.Date, nullable=False)
     foto = db.Column(db.Text, default="") # Endereço da imagem
-    senha = db.Column(db.String(254))
+    senha = db.Column(db.String(254), nullable=False)
 
     cargo_id = db.Column(db.Integer, db.ForeignKey(Cargo.id), nullable=False)
     cargo = db.relationship("Cargo")
