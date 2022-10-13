@@ -5,10 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="script.js"></script>
 </head>
 <body>
-    
+    <table id="tabelaNotas" class="w-full table-auto">
+        <thead>
+            <tr class="bg-blue-300 text-sm uppercase text-gray-600">
+                <th class="text-left">ID</th>
+                <th class="text-left">Data de Criação</th>
+                <th class="text-left">Nome</th>
+                <th class="text-left">Título</th>
+                <th class="text-left">Conteúdo</th>
+                <th class="text-left">ID de usuário</th>
+            </tr>
+        </thead>
+        <tbody id="notas" class="text-gray-600 text-sm"></tbody>
+    </table>
+    <br><br>
+    <hr>
+    <input type="text" placeholder="Nome da classe" id="nomeClasse">
+    <button id="listarNotas">Listar Notas</button>
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </body>
 </html>
