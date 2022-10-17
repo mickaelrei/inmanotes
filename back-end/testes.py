@@ -26,7 +26,7 @@ if __name__ == "__main__":
     db.session.add(cargo_administrador)
 
     # Usuario 1
-    usuario1 = Usuario(nome_usuario="mickael_rei", nome_display="Mickael Doze", senha="senhaforte123", cargo=cargo_usuario, data_criacao=datetime.now())
+    usuario1 = Usuario(nome="Mickael Doze", senha="senhaforte123", cargo=cargo_usuario, data_criacao=datetime.now())
     db.session.add(usuario1)
     
     # Nota

@@ -35,8 +35,7 @@ camposObrigatorios = {
         "descricao"
     ],
     "usuario": [
-        "nome_usuario",
-        "nome_display",
+        "nome",
         "foto",
         "senha",
         "cargo_id"
