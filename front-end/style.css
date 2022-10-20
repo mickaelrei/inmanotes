@@ -1,5 +1,14 @@
-html, body{
+html, body {
     height: 100%;
+    background-image: url('bob_sponj.jpeg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: 50% 50%;
+}
+
+@font-face {
+    font-family: robot_mono;
+    src: url(robot_mono.ttf);
 }
 
 .loginForm {
@@ -8,20 +17,27 @@ html, body{
     justify-content: center;
     align-items: center;
     width: 100%;
-    border-color: black;
-    border-width: 2px;
-    border-radius: 1ch;
 }
 
 .formLabel {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: robot_mono;
+    text-underline-offset: 3px;
+    color: white
 }
 
 .formInput {
-    padding: 5px;
+    font-family: robot_mono;
+    padding: 8px;
     margin-top: 10px;
     margin-bottom: 15px;
     display: block;
+    border-color: rgba(50, 50, 50, 0.137);
+    border-width: 2px;
+    border-radius: .8ch;
+}
+
+.formInput::placeholder {
+    font-size: 75%;
 }
 
 .formButton {
@@ -35,4 +51,5 @@ html, body{
     text-transform: uppercase;
     font-size: 13px;
     font-weight: 500;
+    align-self: center;
 }

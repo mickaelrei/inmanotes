@@ -31,6 +31,7 @@ campos_modificaveis = {
     "cargo": [],
     "usuario": [
         "nome",
+        "email",
         "foto",
         "senha",
         "cargo_id"

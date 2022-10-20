@@ -4,6 +4,7 @@ from modelos.cargo import Cargo
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(254), nullable=False)
+    email = db.Column(db.String(319), nullable=False)
     data_criacao = db.Column(db.Date, nullable=False)
     foto = db.Column(db.Text, default="") # Endereço da imagem
     senha = db.Column(db.String(254), nullable=False)
@@ -15,7 +16,7 @@ class Usuario(db.Model):
     notas = db.relationship("Nota", backref="usuario")
 
     def __str__(self) -> str:
-        s = f"ID: {self.id} ID de cargo: {self.cargo_id}, Nome: {self.nome}, Data de criação da conta: {self.data_criacao}, Caminho da foto: {self.foto}, Senha: {self.senha}. Notas:"
+        s = f"ID: {self.id} ID de cargo: {self.cargo_id}, Nome: {self.nome}, E-Mail: {self.email}, Data de criação da conta: {self.data_criacao}, Caminho da foto: {self.foto}, Senha: {self.senha}. Notas:"
 
         for nota in self.notas:
             s += f"\n ・ {nota}"
@@ -30,7 +31,8 @@ class Usuario(db.Model):
     def json(self) -> dict:
         obj = {
             "id": self.id,
-            'nome': self.nome,
+            "nome": self.nome,
+            "email": self.email,
             "foto": self.foto,
             "senha": self.senha,
             "cargo": self.cargo.json(),

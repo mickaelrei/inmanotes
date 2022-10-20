@@ -7,6 +7,8 @@ from rotas.listar import *
 from rotas.inserir import *
 from rotas.atualizar import *
 from rotas.deletar import *
+from rotas.registrar import *
+from rotas.login import *
 
 @app.route("/")
 def inicio():
