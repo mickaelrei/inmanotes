@@ -14,4 +14,4 @@ from rotas.login import *
 def inicio():
     return "Backend operante\n"
 
-app.run(debug=True)
+app.run(debug=True, host="0.0.0.0")
