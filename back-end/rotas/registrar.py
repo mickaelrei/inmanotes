@@ -1,20 +1,65 @@
 from geral.config import *
+from modelos.usuario import *
+from modelos.cargo import *
+from datetime import datetime
+
+camposNecessarios = [
+    "email",
+    "nome",
+    "foto",
+    "senha"
+]
+
+# Pegar ID de usuário comum e administrador
+usuarioID = db.session.query(Cargo).filter(Cargo.nome == "usuario").first().id
+administradorID = db.session.query(Cargo).filter(Cargo.nome == "administrador").first().id
+
+print("usuarioID:", usuarioID)
+print("AdministradorID:", administradorID)
 
 @app.route("/registrar", methods=["POST"])
 def registrar():
-    resposta = jsonify({"resultado": "ok", "detalhes": "ok"})
+    resposta = {"resultado": "ok", "detalhes": "ok"}
 
     # Dados do front-end
-    dados = request.get_json(force=True)  
-    login = dados['login']
-    senha = dados['senha']
+    dados: dict = request.get_json(force=True)
+    valido = True
+    for campo in camposNecessarios:
+        if campo not in dados:
+            resposta.update({
+                "resultado": "erro",
+                "detalhes": f"Campo {campo} não encontrado."
+            })
+            valido = False
+            break
+    if valido:
+        # Verificar se não existe nenhum usuário com esse e-mail
+        busca = db.session.query(Usuario).filter(Usuario.email == dados["email"])
+        if busca.first():
+            # Existe
+            resposta.update({
+                "resultado": "erro",
+                "detalhes": f"Usuário com e-mail \"{dados['email']}\" já existe"
+            })
+        else:
+            # Adicionar data de criação e ID de cargo
+            dados.update({
+                "data_criacao": datetime.today(),
+                "cargo_id": usuarioID,
+            })
 
-    # Verificar se não existe nenhum usuário com esse e-mail
-    
-    # Adicionar à lista de usuários
+            # Adicionar à lista de usuários
+            try:
+                usuario = Usuario(**dados)
+                db.session.add(usuario)
+                db.session.commit()
+            except TypeError as e:
+                resposta.update({
+                    "resultado": "erro",
+                    "detalhes": str(e)
+                })
 
+    resposta = jsonify(resposta)
     # adicionar cabeçalho de liberação de origem
-    resposta.headers.add("Access-Control-Allow-Origin", meuservidor)
-    # permitir o envio dos cookies
-    resposta.headers.add('Access-Control-Allow-Credentials', 'true')
+    resposta.headers.add("Access-Control-Allow-Origin", "*")
     return resposta  # responder!

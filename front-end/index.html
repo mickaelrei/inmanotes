@@ -11,9 +11,9 @@
     <script src="script.js"></script>
 </head>
 <body>
-    <table id="tabelaNotas" class="w-full table-auto">
+    <table id="tabelaListar" class="w-full table-auto">
         <thead>
-            <tr class="bg-blue-300 text-sm uppercase text-gray-600">
+            <tr class="bg-blue-300 text-sm uppercase text-gray-600" id="tabelaListarCabecalho">
                 <th class="text-left">ID</th>
                 <th class="text-left">Data de Criação</th>
                 <th class="text-left">Nome</th>
@@ -22,12 +22,12 @@
                 <th class="text-left">ID de usuário</th>
             </tr>
         </thead>
-        <tbody id="notas" class="text-gray-600 text-sm"></tbody>
+        <tbody id="tabelaListarCorpo" class="text-gray-600 text-sm"></tbody>
     </table>
     <br><br>
     <hr>
     <input type="text" placeholder="Nome da classe" id="nomeClasse">
-    <button id="listarNotas">Listar Notas</button>
+    <button id="botaoListar">Listar</button>
     <!-- jQuery -->
 </body>
 </html>
