@@ -57,6 +57,5 @@ def registrar():
                 })
 
     resposta = jsonify(resposta)
-    # adicionar cabeçalho de liberação de origem
     resposta.headers.add("Access-Control-Allow-Origin", "*")
-    return resposta  # responder!
+    return resposta

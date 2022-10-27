@@ -1,24 +1,33 @@
 from geral.config import *
+from modelos.usuario import *
 
 @app.route("/login", methods=["POST"])
 def login():
-    resposta = jsonify({"resultado": "ok", "detalhes": "ok"})
+    resposta = {"resultado": "ok", "detalhes": "ok"}
 
     # Informações enviadas pelo front-end
     dados = request.get_json(force=True)
-    login = dados['login']
-    senha = dados['senha']
 
     # Verificar login (a fazer)
+    query = db.session.query(Usuario).filter(Usuario.email == dados["email"])
+    if not query.first():
+        # Não existe
+        resposta = {
+            "resultado": "erro",
+            "detalhes": f"Usuário com email \"{dados['email']}\" não encontrado"
+        }
+    else:
+        # Verificar senha
+        if query.first().senha != dados["senha"]:
+            # Senha incorreta
+            resposta = {
+                "resultado": "erro",
+                "detalhes": f"Senha incorreta"
+            }
+        else:
+            # Senha correta, guardar na sessão
+            pass
 
-    # if login == 'mylogin' and senha == '123':
-    #     # armazenar sessão, para informar que há login realizado
-    #     session[login] = "OK"
-    # else:
-    #     resposta = jsonify({"resultado": "erro", "detalhes": "login e/ou senha inválido(s)"})        
-
-    # adicionar cabeçalho de liberação de origem
-    resposta.headers.add("Access-Control-Allow-Origin", meuservidor)
-    # permitir o envio dos cookies
-    resposta.headers.add('Access-Control-Allow-Credentials', 'true')
-    return resposta  # responder!
+    resposta = jsonify(resposta)
+    resposta.headers.add("Access-Control-Allow-Origin", "*")
+    return resposta

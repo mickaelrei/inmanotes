@@ -11,7 +11,7 @@ html, body {
     src: url(robot_mono.ttf);
 }
 
-.loginForm {
+.loginRegistrarForm {
     height: 100%;
     display: flex;
     justify-content: center;

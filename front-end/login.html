@@ -8,85 +8,22 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="script.js"></script>
+    <script src="js/login.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="loginForm">
+    <div class="loginRegistrarForm">
         <form onsubmit="return false;" id="loginForm">
             <div id="blocoEmail">
                 <label for="campoEmailLogin" class="formLabel">Email</label>
-                <input type="text" name="campoEmailLogin" id="campoEmailLogin" placeholder="Digite seu e-mail" class="formInput">
+                <input type="email" name="campoEmailLogin" id="campoEmailLogin" placeholder="Digite seu e-mail" class="formInput">
             </div>
             <div id="blocoSenha">
                 <label for="campoSenhaLogin" class="formLabel">Senha</label>
                 <input type="password" name="campoSenhaLogin" id="campoSenhaLogin" placeholder="Digite sua senha" class="formInput">
             </div>
-            <button type="submit" class="formButton">Entrar</button>
+            <button type="submit" class="formButton" id="botaoLogin">Entrar</button>
         </form>
     </div>
-
-
-
-
-
-    <!-- <div class="block p-6 rounded-lg shadow-lg bg-white max-w-sm" style="margin: auto">
-        <form>
-          <div class="form-group mb-6">
-            <label for="exampleInputEmail1" class="form-label inline-block mb-2 text-gray-700">Email</label>
-            <input type="email" class="form-control
-              block
-              w-full
-              px-3
-              py-1.5
-              text-base
-              font-normal
-              text-gray-700
-              bg-white bg-clip-padding
-              border border-solid border-gray-300
-              rounded
-              transition
-              ease-in-out
-              m-0
-              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="campoEmailLogin" placeholder="Digite seu e-mail">
-          </div>
-          <div class="form-group mb-6">
-            <label for="exampleInputPassword1" class="form-label inline-block mb-2 text-gray-700">Senha</label>
-            <input type="password" class="form-control block
-              w-full
-              px-3
-              py-1.5
-              text-base
-              font-normal
-              text-gray-700
-              bg-white bg-clip-padding
-              border border-solid border-gray-300
-              rounded
-              transition
-              ease-in-out
-              m-0
-              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="campoSenhaLogin"
-              placeholder="Senha">
-          </div>
-          <button type="submit" class="
-            px-6
-            py-2.5
-            bg-blue-600
-            text-white
-            font-medium
-            text-xs
-            leading-tight
-            uppercase
-            rounded
-            shadow-md
-            hover:bg-blue-700 hover:shadow-lg
-            focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-            active:bg-blue-800 active:shadow-lg
-            transition
-            duration-150
-            ease-in-out">Entrar</button>
-        </form>
-    </div> -->
-    <!-- jQuery -->
 </body>
 </html>

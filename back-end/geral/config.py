@@ -25,3 +25,29 @@ db = SQLAlchemy(app)
 # app.config["SESSION_PERMANENT"] = False
 # app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
+'''
+
+app = Flask(__name__)
+
+cont = 0 # contador de execuções da rota "operacao"
+
+@app.route("/")
+def ola():
+    return "<b>Olá, mundo!</b>"
+
+@app.route("/operacao")
+def operacao():
+    global cont
+    cont += 1
+    print("contador: ", cont)
+    return "A operação foi executada, e o contador foi incrementado"
+
+@app.route("/contador")
+def contador():
+    return str(cont)
+
+
+app.run(debug=True)
+
+'''

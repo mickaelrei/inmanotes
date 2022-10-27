@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/registrar.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="loginRegistrarForm">
+    <form onsubmit="return false;" id="registrarForm">
+        <div id="blocoEmail">
+            <label for="campoEmailRegistrar" class="formLabel">Email</label>
+            <input type="email" name="campoEmailRegistrar" id="campoEmailRegistrar" placeholder="Digite seu e-mail" class="formInput">
+        </div>
+        <div id="blocoNome">
+          <label for="campoNomeRegistrar" class="formLabel">Nome</label>
+          <input type="text" name="campoNomeRegistrar" id="campoNomeRegistrar" placeholder="Digite seu nome" class="formInput">
+        </div>
+        <div id="blocoFoto">
+          <label for="campoFotoRegistrar" class="formLabel">Imagem</label>
+          <input type="text" name="campoFotoRegistrar" id="campoFotoRegistrar" placeholder="Caminho para foto de perfil" class="formInput">
+        </div>
+        <div id="blocoSenha">
+            <label for="campoSenhaRegistrar" class="formLabel">Senha</label>
+            <input type="password" name="campoSenhaRegistrar" id="campoSenhaRegistrar" placeholder="Digite sua senha" class="formInput">
+        </div>
+        <button type="submit" class="formButton" id="botaoRegistrar">Entrar</button>
+    </form>
+  </div>
+</body>
+</html>
