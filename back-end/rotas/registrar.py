@@ -14,9 +14,6 @@ camposNecessarios = [
 usuarioID = db.session.query(Cargo).filter(Cargo.nome == "usuario").first().id
 administradorID = db.session.query(Cargo).filter(Cargo.nome == "administrador").first().id
 
-print("usuarioID:", usuarioID)
-print("AdministradorID:", administradorID)
-
 @app.route("/registrar", methods=["POST"])
 def registrar():
     resposta = {"resultado": "ok", "detalhes": "ok"}

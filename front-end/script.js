@@ -89,13 +89,6 @@ function listar(retorno) {
 
                 lin += `<td class="text-left">${obj[key]}</td>`
             }
-            // let lin = `<tr>
-            //     <td>${nota.id}</td>
-            //     <td>${nota.data_criacao}</td>
-            //     <td>${nota.nome}</td>
-            //     <td>${nota.titulo}</td>
-            //     <td>${nota.conteudo}</td>
-            //     <td>${nota.usuario_id}</td>
             lin += "</tr>"
 
             $("#tabelaListarCorpo").append(lin)
