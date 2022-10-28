@@ -63,8 +63,13 @@ def verificarDados(classe: str, dados: dict) -> str:
 
 
 @app.route("/inserir/<string:classe>", methods=["POST"])
+@jwt_required()
 def inserir(classe: str):
     resposta = {"resultado": "ok", "detalhes": "ok"}
+
+    # Procura o usuário
+    currentUser = get_jwt_identity()
+    print("Usuário que acessou:", currentUser)
 
     if not classe.lower() in classes.keys():
         resposta.update({

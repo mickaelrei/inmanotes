@@ -10,19 +10,24 @@ $(function() {
     $("#botaoListar").click(function() {
         // Pega o nome da classe
         let nomeClasse = $("#nomeClasse").val()
-        // let nomeClasse = "nota"
 
         if (nomeClasse == "") {
             alert("Digite o nome de uma classe!")
             return
         }
 
+        // Pega o JWT
+        let jwt = sessionStorage.getItem("JWT")
+
         $.ajax({
             url: `http://localhost:5000/listar/${nomeClasse}`,
             method: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: { Authorization: 'Bearer ' + jwt},
             success: listar,
             error: function () {
-                alert("Erro, verifique o backend.")
+                alert("Erro ao listar, verifique o backend.")
             }
         })
     })

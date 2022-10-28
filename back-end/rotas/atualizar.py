@@ -39,9 +39,14 @@ campos_modificaveis = {
 }
 
 @app.route("/atualizar/<string:classe>", methods=["POST"])
+@jwt_required()
 def atualizar(classe: str):
     # resposta = {"resultado": "ok", "detalhes": "ok"}
     detalhes = "ok"
+
+    # Procura o usuário
+    currentUser = get_jwt_identity()
+    print("Usuário que acessou:", currentUser)
 
     if not classe.lower() in classes.keys():
         detalhes = f"Classe {classe} não encontrada"
