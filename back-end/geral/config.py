@@ -6,7 +6,7 @@ import os
 import sys
 from flask_cors import CORS, cross_origin
 from datetime import timedelta
-sys.path.append('/home/aluno/inmanotes/back-end/geral')
+# sys.path.append('/home/aluno/inmanotes/back-end/geral')
 
 app = Flask(__name__)
 CORS(app)  
@@ -26,7 +26,7 @@ db = SQLAlchemy(app)
 Session(app)
 
 
-app.config["JWT_SECRET_KEY"] = "secretKey"  # Change this!
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=10) #hours=1)
+app.config["JWT_SECRET_KEY"] = "secretKey"
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=10)
 app.config["JWT_TOKEN_LOCATION"] = ["headers", "query_string"]
 jwt = JWTManager(app)

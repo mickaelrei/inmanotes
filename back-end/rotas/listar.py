@@ -41,42 +41,9 @@ def listar(classe: str):
 
 Testes:
 
-#################
-#    WINDOWS    #
-#################
-
 1) Realizar login
 
 curl localhost:5000/login -X POST -H "Content-Type:application/json" -d "{\"email\": \"mickael.reichert@gmail.com\", \"senha\": \"senhaforte123\"}"
-{
-  "detalhes": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2NjkxODk0MSwianRpIjoiNTdjNmVmMjUtNDA3Ny00MDRiLWJmNWMtN2M4ZmQ0ZDRkZjM3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Im1pY2thZWwucmVpY2hlcnRAZ21haWwuY29tIiwibmJmIjoxNjY2OTE4OTQxLCJleHAiOjE2NjY5MTk1NDF9.DF-K7KpYUD2HzGQOngmaZdXP1nJXXBw5MShZESBE7Bw",
-  "resultado": "ok"
-}
-
-2) Utilizar JWT na rota
-
-curl localhost:5000/listar/nota -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2NjkxODk0MSwianRpIjoiNTdjNmVmMjUtNDA3Ny00MDRiLWJmNWMtN2M4ZmQ0ZDRkZjM3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Im1pY2thZWwucmVpY2hlcnRAZ21haWwuY29tIiwibmJmIjoxNjY2OTE4OTQxLCJleHAiOjE2NjY5MTk1NDF9.DF-K7KpYUD2HzGQOngmaZdXP1nJXXBw5MShZESBE7Bw"
-{
-  "detalhes": [
-    {
-      "conteudo": "testando classe nota. Texto base",
-      "data_criacao": "Wed, 26 Oct 2022 21:24:46 GMT",
-      "id": 1,
-      "nome": "teste",
-      "titulo": "Testando",
-      "usuario_id": 1
-    }
-  ],
-  "resultado": "ok"
-}
-
-#################
-#     LINUX     #
-#################
-
-1) Realizar login
-
-curl localhost:5000/login -X POST -H "Content-Type:application/json" -d '{"email": "mickael.reichert@gmail.com", "senha": "senhaforte123"}'
 {
   "detalhes": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2NjkxODk0MSwianRpIjoiNTdjNmVmMjUtNDA3Ny00MDRiLWJmNWMtN2M4ZmQ0ZDRkZjM3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Im1pY2thZWwucmVpY2hlcnRAZ21haWwuY29tIiwibmJmIjoxNjY2OTE4OTQxLCJleHAiOjE2NjY5MTk1NDF9.DF-K7KpYUD2HzGQOngmaZdXP1nJXXBw5MShZESBE7Bw",
   "resultado": "ok"
