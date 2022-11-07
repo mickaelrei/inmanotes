@@ -1,7 +1,9 @@
 $(function() {
+    ip = sessionStorage.getItem("ip")
+
     // Valores padrão pro login
     $("#campoEmailLogin").val("mickael.reichert@gmail.com")
-    $("#campoSenhaLogin").val("senhaforte123")
+    // $("#campoSenhaLogin").val("123senhaforte123")
 
     // Botão de login
     $("#botaoLogin").click(function() {
@@ -15,8 +17,10 @@ $(function() {
             senha: senha
         })
 
+        url = `http://${ip}:5000/login`
+        console.log(url);
         $.ajax({
-            url: `http://localhost:5000/login`,
+            url: url,
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json',

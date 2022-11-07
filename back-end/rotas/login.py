@@ -20,7 +20,7 @@ def login():
             # Senha incorreta
             resposta = {
                 "resultado": "erro",
-                "detalhes": f"Senha incorreta"
+                "detalhes": f"Senha incorreta."
             }
         else:
             # Senha correta, entregar JWT

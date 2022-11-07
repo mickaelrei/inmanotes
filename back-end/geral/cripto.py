@@ -2,9 +2,10 @@ from cryptography.fernet import Fernet
 
 password = "123senhaforte123"
 key = Fernet.generate_key()
+print("Key:", key)
  
 # Instance the Fernet class with the key
-fernet = Fernet("hey")
+fernet = Fernet(key)
  
 # then use the Fernet class instance
 # to encrypt the string string must

@@ -1,4 +1,6 @@
 $(function() {
+    ip = sessionStorage.getItem("ip")
+    
     // Valores padrão pro register
     $("#campoEmailRegistrar").val("mickael.reichert@gmail.com")
     $("#campoNomeRegistrar").val("Mickael Reichert")
@@ -22,7 +24,7 @@ $(function() {
         })
 
         $.ajax({
-            url: `http://localhost:5000/registrar`,
+            url: `http://${ip}:5000/registrar`,
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json',

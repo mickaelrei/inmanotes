@@ -12,6 +12,6 @@ from rotas.login import *
 
 @app.route("/")
 def inicio():
-    return "Backend operante\n"
+    return "Backend operante. Link para repositório: <a href='https://github.com/mickaelrei/inmanotes' target='_blank'>link</a>\n"
 
 app.run(debug=True, host="0.0.0.0")

@@ -1,4 +1,6 @@
 $(function() {
+    ip = sessionStorage.getItem("ip")
+
     // Quando apertar enter no input de nome de classe, ativar o click do botão de listar
     $("#nomeClasse").keyup(function(event) {
         if (event.key == "Enter") {
@@ -20,7 +22,7 @@ $(function() {
         let jwt = sessionStorage.getItem("JWT")
 
         $.ajax({
-            url: `http://localhost:5000/listar/${nomeClasse}`,
+            url: `http://${ip}:5000/listar/${nomeClasse}`,
             method: 'GET',
             dataType: 'json',
             contentType: 'application/json',
