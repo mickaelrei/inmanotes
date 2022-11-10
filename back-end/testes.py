@@ -2,6 +2,7 @@ import sys
 # Desativar criação das pastas __pycache__
 sys.dont_write_bytecode = True
 from geral.config import *
+from geral.cripto import *
 from modelos.nota import Nota
 from modelos.tarefa import Tarefa
 from modelos.lista_tarefa import ListaTarefa
@@ -26,7 +27,8 @@ if __name__ == "__main__":
     db.session.add(cargo_administrador)
 
     # Usuario 1
-    usuario1 = Usuario(nome="Mickael", email="mickael.reichert@gmail.com", senha="123senhaforte123", cargo=cargo_administrador, data_criacao=datetime.now())
+    senha = cifrar("123senhaforte123")
+    usuario1 = Usuario(nome="Mickael", email="mickael.reichert@gmail.com", senha=senha, cargo=cargo_administrador, data_criacao=datetime.now())
     db.session.add(usuario1)
     
     # Nota

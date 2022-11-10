@@ -1,0 +1,1 @@
+chave = "KYYGkiUTvV9rYQTmr8LPFD79qdUom8M7Rj6QkQMnNXk="

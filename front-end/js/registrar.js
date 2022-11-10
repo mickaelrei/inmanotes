@@ -2,10 +2,10 @@ $(function() {
     ip = sessionStorage.getItem("ip")
     
     // Valores padrão pro register
-    $("#campoEmailRegistrar").val("mickael.reichert@gmail.com")
-    $("#campoNomeRegistrar").val("Mickael Reichert")
-    $("#campoFotoRegistrar").val("")
-    $("#campoSenhaRegistrar").val("senhaforte123")
+    // $("#campoEmailRegistrar").val("mickael.reichert@gmail.com")
+    // $("#campoNomeRegistrar").val("Mickael Reichert")
+    // $("#campoFotoRegistrar").val("")
+    // $("#campoSenhaRegistrar").val("senhaforte123")
 
     // Botão de registrar
     $("#botaoRegistrar").click(function() {

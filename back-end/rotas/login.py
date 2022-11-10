@@ -1,4 +1,5 @@
 from geral.config import *
+from geral.cripto import *
 from modelos.usuario import *
 
 @app.route("/login", methods=["POST"])
@@ -16,7 +17,7 @@ def login():
         }
     else:
         # Verificar senha
-        if usuario.senha != dados["senha"]:
+        if not senhaValida(usuario.senha, dados['senha']):
             # Senha incorreta
             resposta = {
                 "resultado": "erro",

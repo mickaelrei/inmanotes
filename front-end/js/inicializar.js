@@ -8,7 +8,7 @@ $(function() {
     var primeiro = partes[0]
 
     var meuip
-    posicao_doispontos = primeiro.indexOf(":")
+    var posicao_doispontos = primeiro.indexOf(":")
     if (posicao_doispontos >= 0) {
         meuip = primeiro.substring(0, posicao_doispontos)
     } else {

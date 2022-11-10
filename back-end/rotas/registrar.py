@@ -1,6 +1,7 @@
 from geral.config import *
 from modelos.usuario import *
 from modelos.cargo import *
+from geral.cripto import *
 from datetime import datetime
 
 camposNecessarios = [
@@ -44,6 +45,9 @@ def registrar():
                 "data_criacao": datetime.today(),
                 "cargo_id": usuarioID,
             })
+
+            # Criptografa senha
+            dados.update({"senha": cifrar(dados["senha"])})
 
             # Adicionar à lista de usuários
             try:

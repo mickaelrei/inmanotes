@@ -1,8 +1,8 @@
 $(function() {
     ip = sessionStorage.getItem("ip")
 
-    // Valores padrão pro login
-    $("#campoEmailLogin").val("mickael.reichert@gmail.com")
+    // Valores padrão
+    // $("#campoEmailLogin").val("mickael.reichert@gmail.com")
     // $("#campoSenhaLogin").val("123senhaforte123")
 
     // Botão de login

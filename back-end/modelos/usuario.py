@@ -8,24 +8,7 @@ class Usuario(db.Model):
     email = db.Column(db.String(319), nullable=False)
     data_criacao = db.Column(db.Date, nullable=False)
     foto = db.Column(db.Text, default="") # Endereço da imagem
-    chave = db.Column(db.String(254))
-    senha_cripto = db.Column(db.String(254), nullable=False)
-
-    @property
-    def senha(self) -> None:
-        raise AttributeError("Sem permissão para acessar a senha")
-
-    @senha.setter
-    def senha(self, _senha: str) -> None:
-        print("Chave gerada")
-        self.chave = Fernet.generate_key().decode()
-        fernet = Fernet(self.chave.encode())
-        self.senha_cripto = fernet.encrypt(_senha.encode())
-
-    @senha.getter
-    def senha(self) -> str:
-        fernet = Fernet(self.chave.encode())
-        return fernet.decrypt(self.senha_cripto).decode()
+    senha = db.Column(db.String(254), nullable=False)
 
     cargo_id = db.Column(db.Integer, db.ForeignKey(Cargo.id), nullable=False)
     cargo = db.relationship("Cargo")
