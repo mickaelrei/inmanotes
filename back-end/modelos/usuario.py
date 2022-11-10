@@ -35,7 +35,7 @@ class Usuario(db.Model):
             "nome": self.nome,
             "email": self.email,
             "foto": self.foto,
-            "senha": self.senha_cripto.decode(),
+            "senha": self.senha,
             "cargo": self.cargo.json(),
         }
 

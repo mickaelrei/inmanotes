@@ -27,6 +27,6 @@ Session(app)
 
 
 app.config["JWT_SECRET_KEY"] = "secretKey"
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=10)
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=2)
 app.config["JWT_TOKEN_LOCATION"] = ["headers", "query_string"]
 jwt = JWTManager(app)

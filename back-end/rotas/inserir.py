@@ -67,10 +67,6 @@ def verificarDados(classe: str, dados: dict) -> str:
 def inserir(classe: str):
     resposta = {"resultado": "ok", "detalhes": "ok"}
 
-    # Procura o usuário
-    currentUser = get_jwt_identity()
-    print("Usuário que acessou:", currentUser)
-
     if not classe.lower() in classes.keys():
         resposta.update({
             "resultado": "erro",
@@ -78,7 +74,7 @@ def inserir(classe: str):
         })
     else:
         # Pega dados
-        dados = request.get_json()
+        dados = request.get_json(force=True)
 
         # Verifica se possui todos os campos obrigatórios
         sucesso = True

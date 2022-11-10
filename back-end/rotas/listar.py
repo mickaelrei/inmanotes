@@ -19,10 +19,6 @@ classes = {
 def listar(classe: str):
     resposta = {"resultado": "ok"}
 
-    # Procura o usuário
-    currentUser = get_jwt_identity()
-    print("Usuário que acessou:", currentUser)
-
     if not classe.lower() in classes.keys():
         resposta.update({
             "resultado": "erro",
