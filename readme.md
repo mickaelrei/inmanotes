@@ -6,7 +6,7 @@ Este projeto consiste em um aplicativo de criação e edição de notas e lista 
 
 Comandos para acessar rotas do backend
 
-### Registrar uma conta
+## Registrar uma conta
 
     curl localhost:5000/registrar -H "Content-Type:application/json" -X POST -d "{\"nome\": \"seu nome\", \"email\": \"seu email\", \"foto\": \"caminho da sua foto\", \"senha\": \"sua senha\"}"
 
@@ -17,8 +17,9 @@ Resposta:
         "resultado": "ok"
     }
 
+___
 
-### Realizar login em uma conta
+## Realizar login em uma conta
 
     curl localhost:5000/login -H "Content-Type:application/json" -X POST -d "{\"email\": \"seu email\", \"senha\": \"sua senha\"}"
 
@@ -31,9 +32,11 @@ Resposta:
 
 O código devolvido no campo "detalhes" é o JWT que será usado para acessar outras rotas.
 
-### Registrar uma nota no seu usuário
+___
 
-Primeiro encontre o seu ID de usuário:
+## Registrar uma nota no seu usuário
+
+Primeiro encontre o seu ID de usuário, utilizando o seu JWT como Header:
 
     curl localhost:5000/listar/usuario -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2ODA4MDI0NCwianRpIjoiMjJlNmVmZDgtYTU5OC00YmRhLTg3OTQtODA5N2IwMmEzMDIxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImVtYWlsdGVzdGVAZ21haWwuY29tIiwibmJmIjoxNjY4MDgwMjQ0LCJleHAiOjE2NjgwODA4NDR9.4DArfE89k-pw5NMydn1HvV6eHVo14oXjaiQvuo777jg"
 
@@ -43,7 +46,7 @@ Resposta:
         "detalhes": [
             {
             "cargo": {
-                "descricao": "Adminstrador, com permiss\u00e3o de usu\u00e1rio comum al\u00e9m de poder acessar e excluir notas e listas de tarefa de outros usu\u00e1rios", 
+                "descricao": "Administrador, com permiss\u00e3o de usu\u00e1rio comum al\u00e9m de poder acessar e excluir notas e listas de tarefa de outros usu\u00e1rios", 
                 "id": 2, 
                 "nome": "administrador"
             }, 
@@ -67,7 +70,7 @@ Resposta:
             }, 
             "email": "emailteste@gmail.com", 
             "foto": "sem_foto", 
-            "id":   3, 
+            "id": 3, 
             "listas_tarefas": [],
             "nome": "gabriel teste",
             "notas": [], 
@@ -77,10 +80,19 @@ Resposta:
         "resultado": "ok"
     }
 
-Utilizando o JWT e o ID de usuário (nesse caso 3), crie uma nota:
+Utilizando o JWT e o ID de usuário (nesse caso 3), crie uma nota informando os campos necessários no JSON:
 
     curl localhost:5000/inserir/nota -X POST -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2ODA4MDI0NCwianRpIjoiMjJlNmVmZDgtYTU5OC00YmRhLTg3OTQtODA5N2IwMmEzMDIxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImVtYWlsdGVzdGVAZ21haWwuY29tIiwibmJmIjoxNjY4MDgwMjQ0LCJleHAiOjE2NjgwODA4NDR9.4DArfE89k-pw5NMydn1HvV6eHVo14oXjaiQvuo777jg" -d "{\"nome\": \"nome nota teste\", \"titulo\": \"titulo nota teste\", \"conteudo\": \"testando rota inserir\", \"usuario_id\": 3}"
 
-### Listar as notas
+___
+
+## Listar as notas
 
     curl localhost:5000/listar/nota -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2ODA4MDI0NCwianRpIjoiMjJlNmVmZDgtYTU5OC00YmRhLTg3OTQtODA5N2IwMmEzMDIxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImVtYWlsdGVzdGVAZ21haWwuY29tIiwibmJmIjoxNjY4MDgwMjQ0LCJleHAiOjE2NjgwODA4NDR9.4DArfE89k-pw5NMydn1HvV6eHVo14oXjaiQvuo777jg"
+
+___
+
+## Testando backends de projetos de colegas
+
+
+![Testando backends](testando_backends.png)

@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
     # Cargos
     cargo_usuario = Cargo(nome="usuario", descricao="Usuário comum, com permissão para criar, editar e excluir suas próprias notas e listas de tarefa")
-    cargo_administrador = Cargo(nome="administrador", descricao="Adminstrador, com permissão de usuário comum além de poder acessar e excluir notas e listas de tarefa de outros usuários")
+    cargo_administrador = Cargo(nome="administrador", descricao="Administrador, com permissão de usuário comum além de poder acessar e excluir notas e listas de tarefa de outros usuários")
     db.session.add(cargo_usuario)
     db.session.add(cargo_administrador)
 
