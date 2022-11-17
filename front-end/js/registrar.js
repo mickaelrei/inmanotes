@@ -35,6 +35,11 @@ $(function() {
             }
         })
     })
+
+    $("#botaoLoginRedirect").click(function() {
+        // Redireciona para a página de login
+        window.location = "login.html"
+    })
 })
 
 function registrarOk(retorno) {

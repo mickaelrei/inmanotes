@@ -1,6 +1,11 @@
 $(function() {
     ip = sessionStorage.getItem("ip")
 
+    // Remover o JWT
+    console.log("Retirando JWT");
+    sessionStorage.removeItem("JWT")
+    console.log(sessionStorage.getItem("JWT"));
+
     // Valores padrão
     // $("#campoEmailLogin").val("mickael.reichert@gmail.com")
     // $("#campoSenhaLogin").val("123senhaforte123")
@@ -33,6 +38,11 @@ $(function() {
             }
         })
     })
+
+    $("#botaoRegistrarRedirect").click(function() {
+        // Redireciona para a página de registrar
+        window.location = "registrar.html"
+    })
 })
 
 function loginOk(retorno, email) {
@@ -41,6 +51,7 @@ function loginOk(retorno, email) {
         sessionStorage.setItem("email", email)
         sessionStorage.setItem("JWT", retorno.detalhes)
         alert("Sucesso no login!")
+        window.location = "inicio.html"
     } else {
         alert("Erro no login: " + retorno.detalhes)
     }

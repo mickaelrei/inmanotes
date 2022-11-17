@@ -1,6 +1,12 @@
 $(function() {
     ip = sessionStorage.getItem("ip")
 
+    // Verificar se está logado
+    if (sessionStorage.getItem("JWT") === null) {
+        alert("Você não está logado!")
+        window.location = "login.html"
+    }
+
     // Quando apertar enter no input de nome de classe, ativar o click do botão de listar
     $("#nomeClasse").keyup(function(event) {
         if (event.key == "Enter") {
@@ -20,6 +26,11 @@ $(function() {
 
         // Pega o JWT
         let jwt = sessionStorage.getItem("JWT")
+        console.log(jwt);
+        if (!jwt) {
+            alert("Você não está logado!")
+            window.location = "login.html"
+        }
 
         $.ajax({
             url: `http://${ip}:5000/listar/${nomeClasse}`,
@@ -36,12 +47,17 @@ $(function() {
 })
 
 function listar(retorno) {
-    if (retorno.resultado == "ok") {
+    console.log("Listando");
+    if (retorno.resultado === "ok") {
+        if (retorno.detalhes.length == 0) {
+            alert("Nenhum objeto retornado")
+            return
+        }
         // Limpa o cabeçalho
         $("#tabelaListarCabecalho").empty()
 
         // Cria colunas pro cabeçalho
-        for (let key of Object.keys(retorno.detalhes[0])) {
+        for (let key of Object.keys(retorno.detalhes[0])) { 
             let lin = `<th class="text-left">${key}</th>`
 
             $("#tabelaListarCabecalho").append(lin)
