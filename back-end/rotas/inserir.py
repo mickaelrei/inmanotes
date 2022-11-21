@@ -20,7 +20,6 @@ camposObrigatorios = {
         "nome",
         "titulo",
         "conteudo",
-        "usuario_id"
     ],
     "tarefa": [
         "conteudo",
@@ -28,7 +27,6 @@ camposObrigatorios = {
     ],
     "listatarefa": [
         "titulo",
-        "usuario_id"
     ],
     "cargo": [
         "nome",
@@ -42,14 +40,15 @@ camposObrigatorios = {
     ]
 }
 
-def verificarDados(classe: str, dados: dict) -> str:
+def verificarDados(classe: str, dados: dict, user_id: int=None) -> str:
     '''
     Verifica os dados e caso não estiver correto, retorna uma string com os detalhes
     '''
+
     if classe in ("nota", "lista_tarefa"):
-        query = db.session.query(Usuario).filter(Usuario.id == dados["usuario_id"])
+        query = db.session.query(Usuario).filter(Usuario.id == user_id)
         if not query.first():
-            return f"Usuário com ID {dados['usuario_id']} não encontrado"
+            return f"Usuário com ID {user_id} não encontrado"
     elif classe == "usuario":
         query = db.session.query(Cargo).filter(Cargo.id == dados["cargo_id"])
         if not query.first():
@@ -58,6 +57,9 @@ def verificarDados(classe: str, dados: dict) -> str:
         query = db.session.query(ListaTarefa).filter(ListaTarefa.id == dados["lista_tarefa_id"])
         if not query.first():
             return f"Lista de Tarefa com ID {dados['lista_tarefa_id']} não encontrado"
+        # Verifica se essa lista é do usuário
+        elif query.first().usuario_id != user_id:
+            return f"A lista de tarefas de ID {dados['lista_tarefa_id']} não pertence ao usuário de ID {user_id}"
 
     return "ok"
 
@@ -89,7 +91,9 @@ def inserir(classe: str):
         
         if sucesso:
             # Verifica se os dados de referência a outras classes são válidos
-            resultado = verificarDados(classe.lower(), dados)
+            email = get_jwt_identity()
+            user_id = Usuario.query.filter_by(email=email).first().id
+            resultado = verificarDados(classe.lower(), dados, user_id)
             if resultado != "ok":
                 resposta.update({
                     "resultado": "erro",
@@ -103,9 +107,8 @@ def inserir(classe: str):
                 # Converter campo "concluido" para booleano
                 if classe.lower() == "tarefa":
                     if "concluido" in dados:
-                        concluido = dados["concluido"]
                         if type(concluido) != bool:
-                            dados.update({"concluido": True if concluido.lower() == "true" else False})
+                            dados.update({"concluido": True if dados["concluido"] == "true" else False})
                     else:
                         dados.update({"concluido": False})
 

@@ -15,27 +15,35 @@ classes = {
 }
 
 def pegarDados(classeNome: str, user_id: int):
+    # Verifica se o usuário é administrador
+    usuario = Usuario.query.filter_by(id=user_id).first()
+    cargo = Cargo.query.filter_by(id=usuario.cargo_id).first()
+
     if classeNome in ("nota", "listatarefa"):
-        # Pega todos os objetos com id de usuário dado
-        dados = [o.json() for o in classes[classeNome].query.filter_by(usuario_id=user_id).all()]
+        if cargo.nome == "administrador":
+            # Pega todos os objetos
+            query = classes[classeNome].query.all()
+        else:
+            # Pega todos os objetos com id de usuário dado
+            query = classes[classeNome].query.filter_by(usuario_id=user_id).all()
+        dados = [o.json() for o in query]
     elif classeNome == "tarefa":
         # Pega todas as tarefas dentro de uma lista de tarefa com o id de usuário dado
         dados = []
         for tarefa in db.session.query(Tarefa).all():
-            # Verifica se a lista de tarefa tem o mesmo usuário de id
+            # Verifica se a lista de tarefa tem o mesmo usuário de id (ou se é um administrador)
             lista_tarefa = ListaTarefa.query.filter_by(id=tarefa.lista_tarefa_id).first()
-            if lista_tarefa and lista_tarefa.usuario_id == user_id:
+            if lista_tarefa and lista_tarefa.usuario_id == user_id or cargo.nome == "administardor":
                 dados.append(tarefa.json())
     elif classeNome == "cargo":
         # Pega todos os cargos
         dados = [o.json() for o in db.session.query(Cargo).all()]
     else:
-        # Pega o objeto deste usuário
-        usuario = Usuario.query.filter_by(id=user_id).first()
-        if usuario:
-            dados = [usuario.json()]
+        if cargo.nome == "administrador":
+            dados = [o.json() for o in Usuario.query.all()]
         else:
-            dados = []
+            # Pega o objeto deste usuário
+            dados = [Usuario.query.filter_by(id=user_id).first().json()]
 
     return dados
 
