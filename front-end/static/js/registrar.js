@@ -24,7 +24,7 @@ $(function() {
         })
 
         $.ajax({
-            url: `http://${ip}:5000/registrar`,
+            url: `http://${ip}:5000/registrarBack`,
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json',

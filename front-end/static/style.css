@@ -1,6 +1,7 @@
 html, body {
     height: 100%;
-    background-image: url('bob_sponj.jpeg');
+    background-image: url(img/bob_hd.png);
+    background-color: black;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: 50% 50%;
@@ -8,7 +9,12 @@ html, body {
 
 @font-face {
     font-family: robot_mono;
-    src: url(robot_mono.ttf);
+    src: url(fonts/robot_mono.ttf);
+}
+
+@font-face {
+    font-family: bukhari_script;
+    src: url(fonts/bukhari_script.ttf);
 }
 
 .loginRegistrarForm {
@@ -54,3 +60,20 @@ html, body {
     align-self: center;
 }
 
+.titleText {
+    font-family: 'bukhari_script';
+    color: #2a7500;
+    font-size: 50px;
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 35px;
+    text-shadow: 
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px #0fa,
+        0 0 82px #0fa,
+        0 0 92px #0fa,
+        0 0 102px #0fa,
+        0 0 151px #0fa;
+}

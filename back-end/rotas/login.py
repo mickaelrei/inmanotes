@@ -2,7 +2,7 @@ from geral.config import *
 from geral.cripto import *
 from modelos.usuario import *
 
-@app.route("/login", methods=["POST"])
+@app.route("/loginBack", methods=["POST"])
 def login():
     # Informações enviadas pelo front-end
     dados = request.get_json(force=True)

@@ -22,7 +22,7 @@ $(function() {
             senha: senha
         })
 
-        url = `http://${ip}:5000/login`
+        url = `http://${ip}:5000/loginBack`
         console.log(url);
         $.ajax({
             url: url,

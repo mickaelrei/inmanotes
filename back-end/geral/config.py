@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, session
+from flask import Flask, jsonify, request, session, render_template
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
@@ -8,8 +8,10 @@ from flask_cors import CORS, cross_origin
 from datetime import timedelta
 # sys.path.append('/home/aluno/inmanotes/back-end/geral')
 
-app = Flask(__name__)
-CORS(app)  
+caminho_template = "../../front-end"
+static_template = "../../front-end/static"
+app = Flask(__name__ , template_folder=caminho_template, static_folder=static_template)
+CORS(app)
 
 # Caminho do arquivo do banco de dados
 path = os.path.dirname(os.path.abspath(__file__))

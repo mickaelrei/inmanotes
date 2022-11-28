@@ -6,6 +6,7 @@ $(function() {
     if (!jwt) {
         alert("Você não está logado!")
         window.location = "login.html"
+        return
     }
 
     $.ajax({
@@ -30,15 +31,11 @@ function criarMenuUsuario(retorno) {
 
         let usuario = retorno.detalhes[0]
         console.log(usuario);
-        // Pegar valores na sessão
-        var nome = ""
-        var email = ""
-        var foto = ""
 
         // Inserir valores
-        $("#usuarioNome").val(usuario.nome)
-        $("#usuarioEmail").val(usuario.email)
+        $("#usuarioNome").text(usuario.nome)
+        $("#usuarioEmail").text(usuario.email)
 
-        $("#usuarioFoto").append(`<img src=${usuario.foto} alt=Foto>`)
+        $("#usuarioFoto").append(`<img src=${usuario.foto} alt="Foto">`)
     }
 }
