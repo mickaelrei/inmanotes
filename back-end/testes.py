@@ -26,10 +26,14 @@ if __name__ == "__main__":
     db.session.add(cargo_usuario)
     db.session.add(cargo_administrador)
 
-    # Usuario 1
+    # Usuário 1
     senha = cifrar("123senhaforte123")
     usuario1 = Usuario(nome="Mickael", email="mickael.reichert@gmail.com", senha=senha, cargo=cargo_administrador, data_criacao=datetime.now())
     db.session.add(usuario1)
+
+    # Usuário 2
+    usuario2 = Usuario(nome="Igor", email="igor@gmail.com", senha=cifrar("igor"), cargo=cargo_usuario, data_criacao=datetime.now())
+    db.session.add(usuario2)
     
     # Nota
     nota = Nota(nome="teste", titulo="Testando", conteudo="testando classe nota. Texto base",

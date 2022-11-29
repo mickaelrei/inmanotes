@@ -5,6 +5,7 @@ from modelos.tarefa import Tarefa
 from modelos.lista_tarefa import ListaTarefa
 from modelos.cargo import Cargo
 from modelos.usuario import Usuario
+from geral.cripto import *
 
 classes = {
     "nota": Nota,
@@ -41,6 +42,10 @@ def pegarDados(classeNome: str, user_id: int):
     else:
         if cargo.nome == "administrador":
             dados = [o.json() for o in Usuario.query.all()]
+
+            # Descriptografa as senhas
+            for dado in dados:
+                dado["senha"] = decifrar(dado["senha"])
         else:
             # Pega o objeto deste usuário
             dados = [Usuario.query.filter_by(id=user_id).first().json()]

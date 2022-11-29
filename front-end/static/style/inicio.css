@@ -1,0 +1,254 @@
+:root {
+    --sideMenuWidth: 17%;
+    --topBarHeight: 4vw;
+}
+
+html, body {
+    height: 100%;
+}
+
+@font-face {
+    font-family: bukhari_script;
+    src: url(../fonts/bukhari_script.ttf);
+}
+
+@font-face {
+    font-family: robot_mono;
+    src: url(../fonts/robot_mono.ttf);
+}
+
+.sideMenu {
+    width: var(--sideMenuWidth);
+    height: 100%;
+    background-color: #00767B;
+    float: left;
+    border-right: black 2px solid;
+}
+
+#logoImage {
+    width: 2.5vw;
+    margin-left: 5%;
+    float: left;
+    color: white;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    filter: invert(100%)
+}
+
+.titleText {
+    float: right;
+    margin-right: 10%;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 2.2vw;
+    font-family: 'bukhari_script';
+    color: white;
+    text-shadow: 
+        0 0 7px rgb(20, 158, 89),
+        0 0 10px rgb(15, 179, 124),
+        0 0 21px rgb(35, 226, 153);
+}
+
+.logoAndMenu {
+    width: 100%;
+    height: var(--topBarHeight);
+}
+
+.filesNav {
+    margin-top: 3vmax;
+    width: 100%;
+    height: 100%;
+}
+
+.listedFile {
+    width: 100%;
+    height: 3%;
+    margin-bottom: 1px;
+}
+
+.openFileButton {
+    width: 100%;
+    height: 100%;
+    opacity: 100%;
+}
+
+.openFileButton:hover {
+    background-color: rgba(255, 255, 255, .1);
+}
+
+.openFileButton:active {
+    background-color: rgba(100, 218, 223, .3)
+}
+
+.openedFile {
+    float: left;
+    min-width: 11em;
+    max-width: 11em;
+    height: 100%;
+    /* inline-size: min-content; */
+}
+
+.openedFileIcon {
+    height: 40%;
+    margin-left: 8%;
+    float: left;
+    color: white;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    filter: invert(100%);
+}
+
+.openedFile:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, .05);
+}
+
+.openedFile:active {
+    background-color: rgba(105, 146, 148, .4);
+}
+
+.fileIcon {
+    height: 60%;
+    margin-left: 3%;
+    float: left;
+    color: white;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    filter: invert(100%)
+}
+
+.fileName {
+    float: left;
+    margin-left: 5%;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 90%;
+    font-family: 'robot_mono';
+    color: white;
+}
+
+.fileCloseButton {
+    float: right;
+    margin-right: 5%;
+    position: relative;
+    font-size: 100%;
+    top: 50%;
+    transform: translate(0, -50%);
+    color: white;
+    font-weight: 500;
+    border-radius: .5ch;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.fileCloseButton:hover {
+    background-color: rgba(255, 255, 255, .25);
+}
+
+.mainMenu {
+    width: calc(100% - var(--sideMenuWidth));
+    height: 100%;
+    background-color: #01484B;
+    float: right;
+}
+
+.topBar {
+    width: 100%;
+    background-color: #032122;
+    height: 4vmax;
+}
+
+#userImage {
+    height: 60%;
+    float: right;
+    margin-right: 2%;
+    color: white;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    filter: invert(100%)
+}
+
+#userName {
+    float: right;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    margin-right: 2%;
+    font-family: 'robot_mono';
+    font-size: 2vmax;
+    color: white
+}
+
+.filesMenu {
+    width: 100%;
+    height: 3vmax;
+    background-color: rgb(5, 46, 48);
+    /* overflow-x: auto;
+    display: flex;
+    flex-wrap: nowrap; */
+}
+
+.createFileMenu {
+    width: 100%;
+    height: 100%;
+    /* align-items: center; */
+    /* display: flex; */
+}
+
+.createNote, .createChecklist {
+    width: 25%;
+    height: 30%;
+    position: relative;
+    font-size: 100%;
+    top: 33%;
+    /* transform: translate(0, -50%); */
+    text-align: center;
+    font-family: 'robot_mono';
+    color: white;
+}
+
+.createNote {
+    float: left;
+    margin-left: 23%;
+}
+
+.createChecklist {
+    float: right;
+    margin-right: 23%;
+}
+
+.createFileImage {
+    background-color: #042E30;
+    border-radius: 2ch;
+}
+
+button.createFileImage {
+    width: 10vw;
+    height: 10vw
+}
+
+img.createFileImage {
+    /* width: 100%;
+    height: 100%; */
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+img.createFileImage:hover {
+    background-color: rgba(255, 255, 255, .05);
+}
+
+img.createFileImage:active {
+    background-color: #032122;
+}
+
+.fileEditMenu {
+
+}

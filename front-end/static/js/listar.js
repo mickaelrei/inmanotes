@@ -4,7 +4,7 @@ $(function() {
     // Verificar se está logado
     if (sessionStorage.getItem("JWT") === null) {
         alert("Você não está logado!")
-        window.location = "login.html"
+        window.location = `http://${ip}:5000/listar`
     }
 
     // Quando apertar enter no input de nome de classe, ativar o click do botão de listar
@@ -29,7 +29,7 @@ $(function() {
         console.log(jwt);
         if (!jwt) {
             alert("Você não está logado!")
-            window.location = "login.html"
+            window.location = `http://${ip}:5000/listar`
         }
 
         $.ajax({

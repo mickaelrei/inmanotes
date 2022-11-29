@@ -9,8 +9,9 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="static/js/inicializar.js"></script>
-    <script src="static/js/inicio.js"></script>
+    <!-- <script src="static/js/inicializar.js"></script>
+    <script src="static/js/inicio.js"></script> -->
+    <link rel="stylesheet" href="static/style/inicio.css">
 </head>
 <body>
     <!-- 
@@ -23,19 +24,92 @@
     
     -->
 
+    <div class="sideMenu">
+        <!-- Div contendo logo e título do programa -->
+        <div class="logoAndMenu">
+            <img id="logoImage" src="static/img/icon.png" alt="Ícone">
+            <p class="titleText">Inmanotes</p>
+        </div>
 
-    <div class="usuarioInfo">
-        <div>
-            Nome de usuário:
-            <div id="usuarioNome"></div>
-        </div>
-        <div>
-            Email:
-            <div id="usuarioEmail"></div>
-        </div>
-        <div id="usuarioNome">
-            Foto de usuário:
+        <!-- Divs pra cada arquivo contendo ícone e nome -->
+        <div class="filesNav">
+            <div class="listedFile">
+                <button class="openFileButton">
+                    <img src="static/img/note_icon.png" alt="" class="fileIcon">
+                    <p class="fileName">nota_1</p>
+                </button>
+            </div>
+            <div class="listedFile">
+                <button class="openFileButton">
+                    <img src="static/img/note_icon.png" alt="" class="fileIcon">
+                    <p class="fileName">nota_2</p>
+                </button>
+            </div>
+            <div class="listedFile">
+                <button class="openFileButton">
+                    <img src="static/img/note_icon.png" alt="" class="fileIcon">
+                    <p class="fileName">nota_3</p>
+                </button>
+            </div>
         </div>
     </div>
+
+    <div class="mainMenu">
+        <!-- Div para barra superior que contém nome e foto do usuário -->
+        <div class="topBar">
+            <img id="userImage" src="static/img/default_user.png" alt="Ícone">
+            <p id="userName">Mickaeeel</p>
+        </div>
+        
+        <!-- Div que contém uma div para cada arquivo atualmente aberto, com ícone, nome e X para fechar -->
+        <div class="filesMenu">
+            <div class="openedFile">
+                <img src="static/img/note_icon.png" alt="" class="openedFileIcon">
+                <p class="fileName">nota_1</p>
+                <button class="fileCloseButton">X</button>
+            </div>
+            <div class="openedFile">
+                <img src="static/img/note_icon.png" alt="" class="openedFileIcon">
+                <p class="fileName">nota_1_metas_2023</p>
+                <button class="fileCloseButton">X</button>
+            </div>
+        </div>
+
+        <!-- Div com botões pra criar novas notas ou listas de tarefa, que desaperece quando tem pelo menos
+             um arquivo aberta -->
+        <div class="createFileMenu">
+            <div class="createNote">
+                <button id="createNote" class="createFileImage">
+                    <img src="static/img/add_note.png" alt="Nova nota" class="createFileImage">
+                </button>
+                <br><br>
+                <p class="createFileText">Nova nota</p>
+            </div>
+            <div class="createChecklist">
+                <button id="createChecklist" class="createFileImage">
+                    <img src="static/img/add_checklist.png" alt="Nova lista" class="createFileImage">
+                </button>
+                <br><br>
+                <p class="createFileText">Nova lista de tarefa</p>
+            </div>
+        </div>
+
+        <!-- Div que contém edição do arquivo atualmente aberto, que desaparece quando não tem nenhum arquivo
+             aberto (POSSIVELMENTE MAIS FACIL E ORGANIZADO FAZER UM DIV PADRÃO PRA NOTA E UM PRA LISTA DE TAREFA) -->
+        <div class="fileEditMenu">
+        </div>
+    </div>
+
 </body>
 </html>
+
+<!--
+
+TODO:
+ - Adicionar botão na foto e nome do usuário que redireciona para o perfil do usuário (rota /users/nome_usuario ou /perfil)
+ - Mostrar quantidade de notas/listas de tarefa e um gráfico com número de modificações diárias/por hora
+ - Verificar reponsividade das divs de arquivos abertos
+ - Criar div de edição de arquivo (uma pra nota e outra pra checklist)
+ - Começar a lógica pra conectar clicks de botões e edições na tela de edição
+
+-->

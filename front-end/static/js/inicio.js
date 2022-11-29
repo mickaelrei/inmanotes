@@ -1,14 +1,14 @@
 $(function() {
     let ip = sessionStorage.getItem("ip")
-    url = `http://${ip}:5000/listar/usuario`
-
+    
     let jwt = sessionStorage.getItem("JWT")
     if (!jwt) {
         alert("Você não está logado!")
-        window.location = "login.html"
+        window.location = `http://${ip}:5000/login`
         return
     }
-
+    
+    url = `http://${ip}:5000/listar/usuario`
     $.ajax({
         url: url,
         method: 'GET',
@@ -17,7 +17,7 @@ $(function() {
         headers: { Authorization: 'Bearer ' + jwt},
         success: criarMenuUsuario,
         error: function () {
-            alert("Erro ao listar, verifique o backend.")
+            alert("Erro ao pegar informações do usuário, verifique o backend.")
         }
     })
 })
@@ -36,6 +36,8 @@ function criarMenuUsuario(retorno) {
         $("#usuarioNome").text(usuario.nome)
         $("#usuarioEmail").text(usuario.email)
 
-        $("#usuarioFoto").append(`<img src=${usuario.foto} alt="Foto">`)
+        $("#usuarioFoto").append(`<img src="${usuario.foto}" alt="Foto">`)
+    } else {
+        alert("Erro ao pegar informações do usuário. Detalhes: " + retorno.detalhes)
     }
 }

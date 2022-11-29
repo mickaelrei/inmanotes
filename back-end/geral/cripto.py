@@ -8,7 +8,7 @@ fernet = Fernet(key)
 def cifrar(senha: str) -> str:
     return fernet.encrypt(senha.encode()).decode()
 
-# Função 
+# Função
 def decifrar(cifrado: str) -> str:
     return fernet.decrypt(cifrado.encode()).decode()
 

@@ -4,6 +4,6 @@ $(function() {
         sessionStorage.removeItem("email");
         sessionStorage.removeItem("JWT");
 
-        window.location = "inicio.html"
+        window.location = `http://${ip}:5000/login`
     })
 })

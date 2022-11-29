@@ -3,6 +3,7 @@ from modelos.usuario import *
 from modelos.cargo import *
 from geral.cripto import *
 from datetime import datetime
+import re
 
 camposNecessarios = [
     "email",
@@ -11,12 +12,17 @@ camposNecessarios = [
     "senha"
 ]
 
+# Verificação de email
+regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+def emailValido(email: str) -> bool:
+    return regex.fullmatch(email) != None
+
 # Pegar ID de usuário comum e administrador
 usuarioID = db.session.query(Cargo).filter(Cargo.nome == "usuario").first().id
 administradorID = db.session.query(Cargo).filter(Cargo.nome == "administrador").first().id
 
 @app.route("/registrarBack", methods=["POST"])
-def registrar():
+def registrarBack():
     resposta = {"resultado": "ok", "detalhes": "ok"}
 
     # Dados do front-end
@@ -40,25 +46,32 @@ def registrar():
                 "detalhes": f"Usuário com e-mail \"{dados['email']}\" já existe"
             })
         else:
-            # Adicionar data de criação e ID de cargo
-            dados.update({
-                "data_criacao": datetime.today(),
-                "cargo_id": usuarioID,
-            })
-
-            # Criptografa senha
-            dados.update({"senha": cifrar(dados["senha"])})
-
-            # Adicionar à lista de usuários
-            try:
-                usuario = Usuario(**dados)
-                db.session.add(usuario)
-                db.session.commit()
-            except TypeError as e:
+            # Verifica se é um email válido
+            if not emailValido(dados["email"]):
                 resposta.update({
                     "resultado": "erro",
-                    "detalhes": str(e)
+                    "detalhes": f"O email {dados['email']} não é válido"
                 })
+            else:
+                # Adicionar data de criação e ID de cargo
+                dados.update({
+                    "data_criacao": datetime.today(),
+                    "cargo_id": usuarioID,
+                })
+
+                # Criptografa senha
+                dados.update({"senha": cifrar(dados["senha"])})
+
+                # Adicionar à lista de usuários
+                try:
+                    usuario = Usuario(**dados)
+                    db.session.add(usuario)
+                    db.session.commit()
+                except TypeError as e:
+                    resposta.update({
+                        "resultado": "erro",
+                        "detalhes": str(e)
+                    })
 
     resposta = jsonify(resposta)
     resposta.headers.add("Access-Control-Allow-Origin", "*")

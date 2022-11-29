@@ -16,32 +16,27 @@ $(function() {
         let email = $("#campoEmailLogin").val()
         let senha = $("#campoSenhaLogin").val()
 
+        // Verifica se o usuário digitou algo nas duas opções
+        if (email === "") {
+            alert("Digite seu email!")
+            return
+        } else if (senha === "") {
+            alert("Digite sua senha!")
+            return
+        }
+
         // Dados
         let dados = JSON.stringify({
             email: email,
             senha: senha
         })
 
-        url = `http://${ip}:5000/loginBack`
-        console.log(url);
-        $.ajax({
-            url: url,
-            type: 'POST',
-            dataType: 'json',
-            contentType: 'application/json',
-            data: dados,
-            success: function(retorno) {
-                loginOk(retorno, email)
-            },
-            error: function (xhr, status, error) {
-                alert(`Erro no login, verifique o backend. ${xhr.responseText} | ${status} | ${error}`)
-            }
-        })
+        realizarLogin(dados)
     })
 
     $("#botaoRegistrarRedirect").click(function() {
         // Redireciona para a página de registrar
-        window.location = "registrar.html"
+        window.location = `http://${ip}:5000/registrar`
     })
 })
 
@@ -50,9 +45,26 @@ function loginOk(retorno, email) {
         // Guarda o JWT e o login na sessão
         sessionStorage.setItem("email", email)
         sessionStorage.setItem("JWT", retorno.detalhes)
-        alert("Sucesso no login!")
-        window.location = "inicio.html"
+
+        window.location = `http://${ip}:5000/inicio`
     } else {
         alert("Erro no login: " + retorno.detalhes)
     }
-} 
+}
+
+function realizarLogin(dados) {
+    url = `http://${ip}:5000/loginBack`
+    $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: dados,
+        success: function(retorno) {
+            loginOk(retorno, dados.email)
+        },
+        error: function (xhr, status, error) {
+            alert(`Erro no login, verifique o backend. ${xhr.responseText} | ${status} | ${error}`)
+        }
+    })
+}
