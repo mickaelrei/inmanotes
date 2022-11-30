@@ -7,11 +7,20 @@
     <link rel="icon" href="static/img/icon.png">
     <title>Document</title>
 
+    <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- <script src="static/js/inicializar.js"></script>
-    <script src="static/js/inicio.js"></script> -->
+
+    <!-- Logic -->
+    <script src="static/js/inicializar.js"></script>
+    <script src="static/js/inicio.js"></script>
     <link rel="stylesheet" href="static/style/inicio.css">
+
+    <!-- Font awesome -->
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
     <!-- 
@@ -32,33 +41,32 @@
         </div>
 
         <!-- Divs pra cada arquivo contendo ícone e nome -->
-        <div class="filesNav">
-            <div class="listedFile">
-                <button class="openFileButton">
-                    <img src="static/img/note_icon.png" alt="" class="fileIcon">
-                    <p class="fileName">nota_1</p>
-                </button>
+        <div class="filesNav" id="filesNav">
+            <!-- <div class="listedNote" onclick="openFile(this)">
+                <img src="static/img/note_icon.png" alt="" class="fileIcon">
+                <p class="listedFileName">nota_1</p>
             </div>
-            <div class="listedFile">
-                <button class="openFileButton">
-                    <img src="static/img/note_icon.png" alt="" class="fileIcon">
-                    <p class="fileName">nota_2</p>
-                </button>
+            <div class="listedNote" onclick="openFile(this)">
+                <img src="static/img/note_icon.png" alt="" class="fileIcon">
+                <p class="listedFileName">nota_2</p>
             </div>
-            <div class="listedFile">
-                <button class="openFileButton">
-                    <img src="static/img/note_icon.png" alt="" class="fileIcon">
-                    <p class="fileName">nota_3</p>
-                </button>
-            </div>
+            <div class="listedChecklist" onclick="openFile(this)">
+                <img src="static/img/checklist_icon.png" alt="" class="fileIcon">
+                <p class="listedFileName">lista_tarefa_1</p>
+            </div> -->
         </div>
     </div>
 
     <div class="mainMenu">
         <!-- Div para barra superior que contém nome e foto do usuário -->
         <div class="topBar">
-            <img id="userImage" src="static/img/default_user.png" alt="Ícone">
-            <p id="userName">Mickaeeel</p>
+            <div id="logoutContainer" onclick="logout()">
+                <img id="logoutButton" src="static/img/logout.png" alt="Logout">
+            </div>
+            <div id="userImageContainer" onclick="openProfile()">
+                <img id="userImage" src="static/img/default_user.png" alt="Foto">
+            </div>
+            <p id="userName" onclick="openProfile()">Mickaeeel</p>
         </div>
         
         <!-- Div que contém uma div para cada arquivo atualmente aberto, com ícone, nome e X para fechar -->

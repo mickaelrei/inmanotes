@@ -27,6 +27,7 @@ camposObrigatorios = {
     ],
     "listatarefa": [
         "titulo",
+        "nome",
     ],
     "cargo": [
         "nome",
@@ -92,8 +93,8 @@ def inserir(classe: str):
         if sucesso:
             # Verifica se os dados de referência a outras classes são válidos
             email = get_jwt_identity()
-            user_id = Usuario.query.filter_by(email=email).first().id
-            resultado = verificarDados(classe.lower(), dados, user_id)
+            user = Usuario.query.filter_by(email=email).first()
+            resultado = verificarDados(classe.lower(), dados, user.id)
             if resultado != "ok":
                 resposta.update({
                     "resultado": "erro",
@@ -107,10 +108,14 @@ def inserir(classe: str):
                 # Converter campo "concluido" para booleano
                 if classe.lower() == "tarefa":
                     if "concluido" in dados:
-                        if type(concluido) != bool:
+                        if type(dados['concluido']) != bool:
                             dados.update({"concluido": True if dados["concluido"] == "true" else False})
                     else:
                         dados.update({"concluido": False})
+
+                # Adiciona o campo usuario_id nas notas e listas de tarefa
+                if classe.lower() in ("nota", "listatarefa"):
+                    dados.update({"usuario_id": user.id})
 
                 # Tenta adicionar ao banco de dados
                 try:

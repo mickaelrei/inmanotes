@@ -26,7 +26,8 @@ campos_modificaveis = {
         "concluido"
     ],
     "listatarefa": [
-        "titulo"
+        "titulo",
+        "nome"
     ],
     "cargo": [],
     "usuario": [
