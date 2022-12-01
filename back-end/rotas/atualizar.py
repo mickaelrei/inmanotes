@@ -62,7 +62,7 @@ def verificaAcesso(classe: str, dados: dict, obj, user_id: int):
     return detalhes
 
 @app.route("/atualizar/<string:classe>", methods=["POST"])
-@jwt_required()
+@jwt_required
 def atualizar(classe: str):
     detalhes = "ok"
 

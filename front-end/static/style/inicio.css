@@ -1,7 +1,7 @@
 :root {
     --sideMenuWidth: 17%;
     --topBarHeight: 4vw;
-}
+}   
 
 html, body {
     height: 100%;
@@ -46,6 +46,7 @@ html, body {
     font-size: 2.2vw;
     font-family: 'bukhari_script';
     color: white;
+    user-select: none;
     text-shadow: 
         0 0 7px rgb(20, 158, 89),
         0 0 10px rgb(15, 179, 124),
@@ -90,7 +91,7 @@ html, body {
     position: relative;
     top: 50%;
     transform: translate(0, -50%);
-    filter: invert(100%);
+    user-select: none;
 }
 
 .openedFile {
@@ -113,7 +114,7 @@ html, body {
     position: relative;
     top: 50%;
     transform: translate(0, -50%);
-    filter: invert(100%)
+    user-select: none;
 }
 
 .listedFileName, .fileName {
@@ -124,6 +125,7 @@ html, body {
     transform: translate(0, -50%);
     font-family: 'robot_mono';
     color: white;
+    user-select: none;
 }
 
 .listedFileName {
@@ -179,6 +181,7 @@ html, body {
     position: relative;
     top: 50%;
     transform: translate(0, -50%);
+    user-select: none;
 }
 
 #logoutContainer:hover {
@@ -200,6 +203,7 @@ html, body {
     position: relative;
     top: 50%;
     transform: translate(0, -50%);
+    user-select: none;
 }
 
 #userImageContainer:hover {
@@ -221,6 +225,7 @@ html, body {
     font-family: 'robot_mono';
     font-size: 2vmax;
     color: white;
+    user-select: none;
 }
 
 #userName:hover {
@@ -269,6 +274,7 @@ html, body {
 .createFileImage {
     background-color: #042E30;
     border-radius: 2ch;
+    user-select: none;
 }
 
 button.createFileImage {

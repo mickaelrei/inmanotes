@@ -6,11 +6,11 @@ import os
 import sys
 from flask_cors import CORS, cross_origin
 from datetime import timedelta
-# sys.path.append('/home/aluno/inmanotes/back-end/geral')
 
 caminho_template = "../../front-end"
 static_template = "../../front-end/static"
-app = Flask(__name__ , template_folder=caminho_template, static_folder=static_template)
+app = Flask(__name__, template_folder=caminho_template, static_folder=static_template)
+app.app_context().push()
 CORS(app)
 
 # Caminho do arquivo do banco de dados

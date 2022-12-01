@@ -53,7 +53,7 @@ def pegarDados(classeNome: str, user_id: int):
     return dados
 
 @app.route("/listar/<string:classe>")
-@jwt_required()
+@jwt_required
 def listar(classe: str):
     resposta = {"resultado": "ok"}
 
