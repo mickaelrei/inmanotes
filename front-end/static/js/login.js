@@ -2,13 +2,7 @@ $(function() {
     ip = sessionStorage.getItem("ip")
 
     // Remover o JWT
-    console.log("Retirando JWT");
     sessionStorage.removeItem("JWT")
-    console.log(sessionStorage.getItem("JWT"));
-
-    // Valores padrão
-    // $("#campoEmailLogin").val("mickael.reichert@gmail.com")
-    // $("#campoSenhaLogin").val("123senhaforte123")
 
     // Botão de login
     $("#botaoLogin").click(function() {

@@ -64,9 +64,6 @@ function registrarOk(retorno, dados) {
                 alert(`Erro no login, verifique o backend. ${xhr.responseText} | ${status} | ${error}`)
             }
         })
-
-        alert("Sucesso ao registrar!")
-        window.location = `http://${ip}:5000/inicio`
     } else {
         alert("Erro ao registrar: " + retorno.detalhes)
     }
@@ -76,6 +73,9 @@ function loginResposta(retorno) {
     if (retorno.resultado === "ok") {
         sessionStorage.setItem("email", email)
         sessionStorage.setItem("JWT", retorno.detalhes)
+
+        alert("Sucesso ao registrar!")
+        window.location = `http://${ip}:5000/inicio`
     } else {
         alert("Erro ao realizar login após registro de conta! Detalhes: " + retorno.detalhes)
     }

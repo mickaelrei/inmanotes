@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="static/img/icon.png">
-    <title>Document</title>
+    <title>Inmanotes</title>
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -46,10 +46,6 @@
                 <img src="static/img/note_icon.png" alt="" class="fileIcon">
                 <p class="listedFileName">nota_1</p>
             </div>
-            <div class="listedNote" onclick="openFile(this)">
-                <img src="static/img/note_icon.png" alt="" class="fileIcon">
-                <p class="listedFileName">nota_2</p>
-            </div>
             <div class="listedChecklist" onclick="openFile(this)">
                 <img src="static/img/checklist_icon.png" alt="" class="fileIcon">
                 <p class="listedFileName">lista_tarefa_1</p>
@@ -57,7 +53,7 @@
         </div>
     </div>
 
-    <div class="mainMenu">
+    <div id="mainMenu">
         <!-- Div para barra superior que contém nome e foto do usuário -->
         <div class="topBar">
             <div id="logoutContainer" onclick="logout()">
@@ -70,22 +66,22 @@
         </div>
         
         <!-- Div que contém uma div para cada arquivo atualmente aberto, com ícone, nome e X para fechar -->
-        <div class="filesMenu">
-            <div class="openedFile">
+        <div id="filesMenu">
+            <!-- <div class="openedFile selectedFile" onclick="switchFile(this)">
                 <img src="static/img/note_icon.png" alt="" class="openedFileIcon">
                 <p class="fileName">nota_1</p>
-                <button class="fileCloseButton">X</button>
+                <button class="fileCloseButton" onclick="closeFile(this)">X</button>
             </div>
-            <div class="openedFile">
+            <div class="openedFile" onclick="switchFile(this)">
                 <img src="static/img/note_icon.png" alt="" class="openedFileIcon">
                 <p class="fileName">nota_1_metas_2023</p>
-                <button class="fileCloseButton">X</button>
-            </div>
+                <button class="fileCloseButton" onclick="closeFile(this)">X</button>
+            </div> -->
         </div>
 
         <!-- Div com botões pra criar novas notas ou listas de tarefa, que desaperece quando tem pelo menos
              um arquivo aberta -->
-        <div class="createFileMenu">
+        <div id="createFileMenu">
             <div class="createNote">
                 <button id="createNote" class="createFileImage">
                     <img src="static/img/add_note.png" alt="Nova nota" class="createFileImage">
@@ -104,7 +100,21 @@
 
         <!-- Div que contém edição do arquivo atualmente aberto, que desaparece quando não tem nenhum arquivo
              aberto (POSSIVELMENTE MAIS FACIL E ORGANIZADO FAZER UM DIV PADRÃO PRA NOTA E UM PRA LISTA DE TAREFA) -->
-        <div class="fileEditMenu">
+        <div id="checklistEditMenu">
+            <textarea onload="autoGrow(this)" oninput="autoGrow(this)" name="checklistTitleEdit" id="checklistTitleEdit">Lista de compras</textarea>
+            <textarea name="checklistEditArea" id="checklistEditArea">- Banana
+- Maçã
+- Aveia
+- Leite
+            </textarea>
+        </div>
+        <div id="noteEditMenu">
+            <textarea onload="autoGrow(this)" oninput="autoGrow(this)" name="noteTitleEdit" id="noteTitleEdit">Como fazer um avião de papel taligado meu mano o meu moles ta bem estranho hahahaha muito fole</textarea>
+            <textarea name="noteEditArea" id="noteEditArea">Passo 1:
+- Pegue uma folha
+
+Passo 2:
+- Dobre até virar um avião :)</textarea>
         </div>
     </div>
 

@@ -99,11 +99,12 @@ html, body {
     min-width: 11em;
     width: auto;
     height: 100%;
+    background-color: rgb(1, 72, 75);
 }
 
 .openedFile:hover {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, .05);
+    /* background-color: rgba(255, 255, 255, .05); */
 }
 
 .fileIcon {
@@ -160,7 +161,7 @@ html, body {
     background-color: rgba(255, 255, 255, .25);
 }
 
-.mainMenu {
+#mainMenu {
     width: calc(100% - var(--sideMenuWidth));
     height: 100%;
     background-color: #01484B;
@@ -232,7 +233,7 @@ html, body {
     cursor: pointer;
 }
 
-.filesMenu {
+#filesMenu {
     width: 100%;
     height: 3vmax;
     background-color: rgb(5, 46, 48);
@@ -242,11 +243,9 @@ html, body {
     flex-wrap: nowrap;
 }
 
-.createFileMenu {
+#createFileMenu {
     width: 100%;
     height: 100%;
-    /* align-items: center; */
-    /* display: flex; */
 }
 
 .createNote, .createChecklist {
@@ -255,7 +254,6 @@ html, body {
     position: relative;
     font-size: 100%;
     top: 33%;
-    /* transform: translate(0, -50%); */
     text-align: center;
     font-family: 'robot_mono';
     color: white;
@@ -298,6 +296,60 @@ img.createFileImage:active {
     background-color: #032122;
 }
 
-.fileEditMenu {
+#noteEditMenu, #checklistEditMenu {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
 
+#noteEditArea, #checklistEditArea, #noteTitleEdit, #checklistTitleEdit {
+    font-family: "robot_mono";
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 0;
+    border: 0px;
+    color: white;
+    text-shadow: none;
+}
+
+#noteEditArea:active, #checklistEditArea:active, #noteTitleEdit:active, #checklistTitleEdit:active {
+    text-shadow: none;
+}
+
+#noteEditArea {
+    width: 100%;
+    height: 100%;
+    padding-top: 10px;
+    padding-left: 10px;
+    resize: none;
+    background-color: rgba(9, 153, 158, 50%);
+}
+
+#noteTitleEdit {
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+    min-height: 50px;
+    max-height: 100px;
+    padding-left: 3%;
+    padding-right: 3%;
+    font-size: 150%;
+    text-align: left;
+    background-color: #032122;
+}
+
+#checklistEditArea {
+    width: 100%;
+    height: 100%;
+    padding-top: 10px;
+    padding-left: 10px;
+    resize: none;
+    background-color: rgba(9, 153, 158, 50%);
+}
+
+#checklistTitleEdit {
+    resize: none;
+}
+
+.selectedFile {
+    background-color: rgb(4, 39, 41)
 }

@@ -28,6 +28,7 @@ def pegarDados(classeNome: str, user_id: int):
             # Pega todos os objetos com id de usuário dado
             query = classes[classeNome].query.filter_by(usuario_id=user_id).all()
         dados = [o.json() for o in query]
+        print(dados)
     elif classeNome == "tarefa":
         # Pega todas as tarefas dentro de uma lista de tarefa com o id de usuário dado
         dados = []
@@ -53,7 +54,7 @@ def pegarDados(classeNome: str, user_id: int):
     return dados
 
 @app.route("/listar/<string:classe>")
-@jwt_required
+# @jwt_required()
 def listar(classe: str):
     resposta = {"resultado": "ok"}
 
@@ -65,9 +66,9 @@ def listar(classe: str):
         })
     else:
         # Pega o ID de usuário
-        email = get_jwt_identity()
-        user_id = Usuario.query.filter_by(email=email).first().id
-        dados = pegarDados(classe.lower(), user_id)
+        # email = get_jwt_identity()
+        # user_id = Usuario.query.filter_by(email=email).first().id
+        dados = pegarDados(classe.lower(), 1)
         
         resposta.update({"detalhes": dados})
     

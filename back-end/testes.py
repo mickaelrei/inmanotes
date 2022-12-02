@@ -28,12 +28,16 @@ if __name__ == "__main__":
 
     # Usuário 1
     senha = cifrar("123senhaforte123")
-    usuario1 = Usuario(nome="Mickael", email="mickael.reichert@gmail.com", senha=senha, cargo=cargo_administrador, data_criacao=datetime.now())
+    usuario1 = Usuario(nome="Mickael", email="mickael.reichert@gmail.com", senha=senha, cargo=cargo_administrador, data_criacao=datetime.now(), foto="https://i.imgflip.com/6j5s8t.jpg")
     db.session.add(usuario1)
 
     # Usuário 2
-    usuario2 = Usuario(nome="Igor", email="igor@gmail.com", senha=cifrar("igor"), cargo=cargo_usuario, data_criacao=datetime.now())
+    usuario2 = Usuario(nome="Igor", email="igor@gmail.com", senha=cifrar("igor"), cargo=cargo_usuario, data_criacao=datetime.now(), foto="https://pbs.twimg.com/profile_images/1419702226440925185/symppuFd_400x400.jpg")
     db.session.add(usuario2)
+
+    # Outros usuários
+    usuarioVito = Usuario(nome="vito batima", email="vito@gmail.com", senha=cifrar("vito"), cargo=cargo_usuario, data_criacao=datetime.now(), foto="https://pbs.twimg.com/media/Et8kVXqWgAI2xHh?format=jpg&name=small")
+    db.session.add(usuarioVito)
     
     # Nota
     nota = Nota(nome="teste", titulo="Testando", conteudo="testando classe nota. Texto base",

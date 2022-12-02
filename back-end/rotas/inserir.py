@@ -66,7 +66,7 @@ def verificarDados(classe: str, dados: dict, user_id: int=None) -> str:
 
 
 @app.route("/inserir/<string:classe>", methods=["POST"])
-@jwt_required
+@jwt_required()
 def inserir(classe: str):
     resposta = {"resultado": "ok", "detalhes": "ok"}
 
