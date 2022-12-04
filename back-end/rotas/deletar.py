@@ -23,16 +23,19 @@ def verificaAcesso(classe: str, dados: dict, obj, user_id: int):
     if cargo.nome == "administrador":
         return detalhes
 
-    if classe.lower() in ("nota", "listatarefa") and obj.usuario_id != user_id:
-        detalhes = f"Objeto do tipo {classe} com ID {dados['id']} não pertence ao usuário com ID {user_id}"
+    if classe.lower() in ("nota", "listatarefa"):
+        # Procura o ID de usuário do objeto
+        objeto_usuario_id = classes[classe.lower()].query.filter_by(id=obj.id).usuario_id
+        if objeto_usuario_id != user_id:
+            detalhes = f"Objeto do tipo {classe} com ID {dados['id']} não pertence ao usuário com ID {user_id}"
     elif classe.lower() == "tarefa":
         # Verifica se pertence a uma lista de tarefa deste usuário
         lista_tarefa = ListaTarefa.query.filter_by(id=obj.lista_tarefa_id).first()
         if not (lista_tarefa and lista_tarefa.usuario_id == user_id):
-            detalhes = f"Tarefa com ID {obj.id} pertence à lista com ID {lista_tarefa.id}, que não pertence ao usuário com ID {user_id}"
+            detalhes = f"Tarefa com ID {obj.id} não pertence ao usuário com ID {user_id}"
     elif classe.lower() == "usuario":
         if dados["id"] != user_id:
-            detalhes = f"Tentativa de modificar outro usuário (ID logado: {user_id}, ID de tentativa: {dados['id']}"
+            detalhes = f"Tentativa de deletar outro usuário (ID logado: {user_id}, ID de tentativa: {dados['id']}"
         
     return detalhes
 
@@ -65,7 +68,7 @@ def deletar(classe: str):
                     detalhes = detalhesAcesso
     
     resposta = jsonify({
-        "resposta": "ok" if detalhes == "ok" else "erro",
+        "resultado": "ok" if detalhes == "ok" else "erro",
         "detalhes": detalhes
     })
     resposta.headers.add("Access-Control-Allow-Origin", "*")

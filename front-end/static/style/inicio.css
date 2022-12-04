@@ -100,6 +100,7 @@ html, body {
     width: auto;
     height: 100%;
     background-color: rgb(1, 72, 75);
+    z-index: 1;
 }
 
 .openedFile:hover {
@@ -155,6 +156,7 @@ html, body {
     padding-left: 4px;
     padding-right: 5px;
     width: 12%;
+    z-index: 2;
 }
 
 .fileCloseButton:hover {
@@ -302,6 +304,10 @@ img.createFileImage:active {
     display: none;
 }
 
+#noteEditArea, #checklistEditArea {
+    overflow-y: auto;
+}
+
 #noteEditArea, #checklistEditArea, #noteTitleEdit, #checklistTitleEdit {
     font-family: "robot_mono";
     background-color: rgba(0, 0, 0, 0);
@@ -324,14 +330,15 @@ img.createFileImage:active {
     background-color: rgba(9, 153, 158, 50%);
 }
 
-#noteTitleEdit {
+#noteTitleEdit, #checklistTitleEdit {
     width: 100%;
     resize: none;
     overflow: hidden;
     min-height: 50px;
     max-height: 100px;
-    padding-left: 3%;
+    padding-left: 1.2%;
     padding-right: 3%;
+    padding-top: 0.8%;
     font-size: 150%;
     text-align: left;
     background-color: #032122;
@@ -343,7 +350,7 @@ img.createFileImage:active {
     padding-top: 10px;
     padding-left: 10px;
     resize: none;
-    background-color: rgba(9, 153, 158, 50%);
+    background-color: rgba(53, 184, 189, 0.5);
 }
 
 #checklistTitleEdit {
@@ -352,4 +359,105 @@ img.createFileImage:active {
 
 .selectedFile {
     background-color: rgb(4, 39, 41)
+}
+
+#tasks {
+    margin-bottom: 15px;
+}
+
+#tasks:empty {
+    margin-bottom: 0px;
+}
+
+#newTask {
+    width: 25px;
+    height: 25px;
+    background-color: rgb(29, 248, 84);
+    border-radius: 20%;
+    font-size: 150%;
+    font-weight: 800;
+    color: white;
+}
+
+#newTask:hover {
+    background-color: rgb(29, 199, 71);
+}
+
+.task {
+    margin-right: 1rem;
+    margin-bottom: .7rem;
+    padding-left: 1.75rem;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.task input[type=checkbox] {
+    position: absolute;
+    transform: translate(-100%, 01);
+    opacity: 0;
+}
+
+.task input[type=checkbox]:focus ~ span {
+    border: 2px solid #aab0b9;
+}
+
+.task input[type=checkbox]:focus:checked ~ span {
+    border: 2px solid #265b81;
+}
+
+.task input[type=checkbox]:checked ~ span {
+    color: #ffffff;
+    background: #3785bc url('../img/checkmark.png') 50% 40% no-repeat;
+    border: 2px solid #3785bc;
+}
+
+label.task span {
+    border-radius: 3px;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 1rem;
+    height: 1rem;
+    background-color: #d4d7dc;
+    border: 2px solid #d4d7dc;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.taskEdit {
+    width: 90%;
+    height: 20px;
+    padding-left: 5px;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+    border: 0;
+    color: white;
+    resize: none;
+    background-color: rgba(0, 0, 0, 0);
+    overflow-y: hidden;
+}
+
+.removeTaskButton {
+    background-color: red;
+    height: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: white;
+    font-weight: 600;
+    border-radius: 20%;
+    float: right;
+    /* position: relative;
+    top: 50%;
+    transform: translate(0, -50%); */
+}
+
+.removeTaskButton:hover {
+    background-color: rgb(170, 0, 0);
 }

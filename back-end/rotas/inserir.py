@@ -124,7 +124,7 @@ def inserir(classe: str):
                     db.session.commit()
 
                     # Atualizar resposta
-                    resposta.update({"detalhes": dados})
+                    resposta.update({"detalhes": obj.json()})
                 except TypeError as e:
                     # Em caso de erro, atualiza a resposta
                     resposta.update({

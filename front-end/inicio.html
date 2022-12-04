@@ -101,20 +101,37 @@
         <!-- Div que contém edição do arquivo atualmente aberto, que desaparece quando não tem nenhum arquivo
              aberto (POSSIVELMENTE MAIS FACIL E ORGANIZADO FAZER UM DIV PADRÃO PRA NOTA E UM PRA LISTA DE TAREFA) -->
         <div id="checklistEditMenu">
-            <textarea onload="autoGrow(this)" oninput="autoGrow(this)" name="checklistTitleEdit" id="checklistTitleEdit">Lista de compras</textarea>
-            <textarea name="checklistEditArea" id="checklistEditArea">- Banana
-- Maçã
-- Aveia
-- Leite
-            </textarea>
+            <textarea spellcheck="false" onload="autoGrow(this)" oninput="autoGrow(this)" name="checklistTitleEdit" id="checklistTitleEdit">Lista de compras</textarea>
+            <div id="checklistEditArea">
+                <div id="tasks">
+                    <label class="task">
+                        <input checked type="checkbox">
+                        <span></span>
+                        <textarea spellcheck="false" name="taskEdit" id="taskEdit" class="taskEdit">Banana</textarea>
+                        <button class="removeTaskButton" onclick="removeTask(this)"></button>
+                    </label>
+                    <label class="task">
+                        <input type="checkbox">
+                        <span></span>
+                        <textarea spellcheck="false" name="taskEdit" id="taskEdit" class="taskEdit">Leite</textarea>
+                    </label>
+                    <label class="task">
+                        <input type="checkbox">
+                        <span></span>
+                        <textarea spellcheck="false" name="taskEdit" id="taskEdit" class="taskEdit">Aveia</textarea>
+                    </label>
+                    <label class="task">
+                        <input checked type="checkbox">
+                        <span></span>
+                        <textarea spellcheck="false" name="taskEdit" id="taskEdit" class="taskEdit">Corote</textarea>
+                    </label>
+                </div>
+                <button id="newTask">+</button>
+            </div>
         </div>
         <div id="noteEditMenu">
-            <textarea onload="autoGrow(this)" oninput="autoGrow(this)" name="noteTitleEdit" id="noteTitleEdit">Como fazer um avião de papel taligado meu mano o meu moles ta bem estranho hahahaha muito fole</textarea>
-            <textarea name="noteEditArea" id="noteEditArea">Passo 1:
-- Pegue uma folha
-
-Passo 2:
-- Dobre até virar um avião :)</textarea>
+            <textarea spellcheck="false" onload="autoGrow(this)" oninput="autoGrow(this)" name="noteTitleEdit" id="noteTitleEdit">Como fazer um avião de papel taligado meu mano o meu moles ta bem estranho hahahaha muito fole</textarea>
+            <textarea spellcheck="false" name="noteEditArea" id="noteEditArea"></textarea>
         </div>
     </div>
 

@@ -23,7 +23,8 @@ campos_modificaveis = {
     ],
     "tarefa": [
         "conteudo",
-        "concluido"
+        "concluido",
+        "lista_tarefa_id"
     ],
     "listatarefa": [
         "titulo",
@@ -54,7 +55,7 @@ def verificaAcesso(classe: str, dados: dict, obj, user_id: int):
         # Verifica se pertence a uma lista de tarefa deste usuário
         lista_tarefa = ListaTarefa.query.filter_by(id=obj.lista_tarefa_id).first()
         if not (lista_tarefa and lista_tarefa.usuario_id == user_id):
-            detalhes = f"Tarefa com ID {obj.id} pertence à lista com ID {lista_tarefa.id}, que não pertence ao usuário com ID {user_id}"
+            detalhes = f"Tarefa com ID {obj.id} não pertence ao usuário com ID {user_id}"
     elif classe.lower() == "usuario":
         if dados["id"] != user_id:
             detalhes = f"Tentativa de modificar outro usuário (ID logado: {user_id}, ID de tentativa: {dados['id']}"
@@ -111,7 +112,7 @@ def atualizar(classe: str):
                         db.session.commit()
     
     resposta = jsonify({
-        "resposta": "ok" if detalhes == "ok" else "erro",
+        "resultado": "ok" if detalhes == "ok" else "erro",
         "detalhes": detalhes
     })
     resposta.headers.add("Access-Control-Allow-Origin", "*")

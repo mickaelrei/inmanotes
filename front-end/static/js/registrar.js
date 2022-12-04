@@ -59,7 +59,9 @@ function registrarOk(retorno, dados) {
             dataType: 'json',
             contentType: 'application/json',
             data: dados,
-            success: loginResposta,
+            success: function(retorno) {
+                loginResposta(retorno, dados.email)
+            },
             error: function (xhr, status, error) {
                 alert(`Erro no login, verifique o backend. ${xhr.responseText} | ${status} | ${error}`)
             }
@@ -69,7 +71,7 @@ function registrarOk(retorno, dados) {
     }
 }
 
-function loginResposta(retorno) {
+function loginResposta(retorno, email) {
     if (retorno.resultado === "ok") {
         sessionStorage.setItem("email", email)
         sessionStorage.setItem("JWT", retorno.detalhes)

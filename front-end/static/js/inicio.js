@@ -15,8 +15,122 @@ $(function() {
     }
     console.log(jwt)
 
-    let success = true
+    // Conecta clicks de botões
+    $("#createNote").on("click", function() {
+        // Cria um objeto nota com valores padrões
+        let nota = JSON.stringify({
+            nome: "sem_titulo",
+            titulo: "Nova nota",
+            conteudo: "Digite algo!"
+        })
+
+        // Chama o backend
+        $.ajax({
+            url: `http://${ip}:5000/inserir/nota`,
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: { Authorization: 'Bearer ' + jwt},
+            data: nota,
+            success: function(retorno) {
+                if (retorno.resultado === "ok") {
+                    // Save in list
+                    let note = retorno.detalhes
+                    console.log("Saving on id " + note.id)
+                    notes[note.id] = note
+
+                    // Add to listed files and open it
+                    let listedNoteDiv = createListedNote(note)
+                    openFile(listedNoteDiv)
+                } else {
+                    alert("Falha ao criar nova nota: " + retorno.detalhes)
+                }
+            },
+            error: function(xhr) {
+                alert("Erro ao criar nova nota: " + xhr.responseText)
+            }
+        })
+    })
+
+    $("#createChecklist").on("click", function() {
+        // Cria um objeto lista de tarefa com valores padrões
+        let checklist = JSON.stringify({
+            nome: "sem_titulo",
+            titulo: "Nova lista de tarefas",
+        })
+
+        // Chama o backend
+        $.ajax({
+            url: `http://${ip}:5000/inserir/listatarefa`,
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: { Authorization: 'Bearer ' + jwt},
+            data: checklist,
+            success: function(retorno) {
+                if (retorno.resultado === "ok") {
+                    // Save in list
+                    let checklist = retorno.detalhes
+                    console.log("Saving on id " + checklist.id)
+                    checklists[checklist.id] = checklist
+
+                    // Add to listed files and open it
+                    let listedChecklistDiv = createListedChecklist(checklist)
+                    openFile(listedChecklistDiv)
+                } else {
+                    alert("Falha ao criar nova lista de tarefas: " + retorno.detalhes)
+                }
+            },
+            error: function(xhr) {
+                alert("Erro ao criar nova lista de tarefas: " + xhr.responseText)
+            }
+        })
+    })
     
+    $("#newTask").on("click", function() {
+        // Guarda o ID da lista de tarefa aberta
+        let id = currentFile.id
+        console.log("Adding task on checklist ID=" + id + " | Name=" + checklists[id].nome)
+
+        // Cria uma tarefa vazia
+        let tarefa = JSON.stringify({
+            conteudo: "Nova tarefa",
+            lista_tarefa_id: id,
+        })
+
+        $.ajax({
+            url: `http://${ip}:5000/inserir/tarefa`,
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: { Authorization: 'Bearer ' + jwt},
+            data: tarefa,
+            success: function(retorno) {
+                if (retorno.resultado === "ok") {
+                    // Add to checklist
+                    let task = retorno.detalhes
+                    console.log(task)
+                    checklists[id].tarefas.push(task)
+
+                    // Create task div
+                    let taskDiv = `<label class="task" id="task_${task.id}">
+                    <input ${task.concluido ? "checked" : ""} type="checkbox">
+                    <span></span>
+                    <textarea spellcheck="false" name="taskEdit" class="taskEdit">${task.conteudo}</textarea>
+                    <button class="removeTaskButton" onclick="removeTask(this)">X</button>
+                    </label>`
+
+                    $("#tasks").append(taskDiv)
+                } else {
+                    alert("Falha ao adicionar nova tarefa: " + retorno.detalhes)
+                }
+            },
+            error: function(xhr) {
+                alert("Erro ao adicionar nova tarefa: " + xhr.responseText)
+            }
+        })
+    })
+
     // Pega informações do usuário
     url = `http://${ip}:5000/listar/usuario`
     $.ajax({
@@ -28,11 +142,152 @@ $(function() {
         success: createUserMenu,
         error: function (xhr, status, error) {
             success = false
-            alert("Erro usuário! faça login novamente.")
+            alert("Erro ao pegar informações do usuário! faça login novamente.")
             window.location = `http://${ip}:5000/login`
         }
     })
 })
+
+function saveCurrentFile() {
+    if (!currentFile)
+        return
+
+    if (currentFile.type === "note") {
+        // Get JSON obj
+        let id = currentFile.id
+        let jsonObj = notes[id]
+
+        // Get info
+        let titulo = $("#noteTitleEdit").val()
+        let conteudo = $("#noteEditArea").val()
+
+        // Check if anything is different
+        if (titulo === jsonObj.titulo && conteudo === jsonObj.conteudo) {
+            console.log("Nota não modificada")
+            return
+        }
+
+        let changes = {
+            id: id,
+            titulo: titulo,
+            conteudo: conteudo
+        }
+
+        // Create modifications JSON and call backend
+        let data = JSON.stringify(changes)
+        $.ajax({
+            url: `http://${ip}:5000/atualizar/nota`,
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: { Authorization: 'Bearer ' + jwt},
+            data: data,
+            success: function(retorno) {
+                if (retorno.resultado === "ok") {
+                    // Updates the object
+                    for (let key in changes) {
+                        jsonObj[key] = changes[key]
+                    }
+                } else {
+                    alert("Falha ao atualizar: " + retorno.detalhes)
+                }
+            },
+            error: function(xhr) {
+                alert("Erro ao atualizar arquivo: " + xhr.responseText)
+            }
+        })
+    } else {
+        // Get JSON obj
+        let id = currentFile.id
+        let jsonObj = checklists[id]
+
+        // Get info
+        let titulo = $("#checklistTitleEdit").val()
+
+        // Check if title modified
+        if (titulo !== jsonObj.titulo) {
+            let changes = {
+                id: id,
+                titulo: titulo
+            }
+            let data = JSON.stringify(changes)
+
+            $.ajax({
+                url: `http://${ip}:5000/atualizar/listatarefa`,
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                headers: { Authorization: 'Bearer ' + jwt},
+                data: data,
+                success: function(retorno) {
+                    if (retorno.resultado === "ok") {
+                        // Updates the object
+                        for (let key in changes) {
+                            jsonObj[key] = changes[key]
+                        }
+                    } else {
+                        alert("Falha ao atualizar lista de tarefa: " + retorno.detalhes)
+                    }
+                },
+                error: function(xhr) {
+                    alert("Erro ao atualizar lista de tarefa: " + xhr.responseText)
+                }
+            })
+        }
+
+        // Get tasks
+        let taskDivs = $("#tasks").children()
+        for (let i = 0; i < taskDivs.length; i++) {
+            let taskDiv = $(taskDivs[i])
+            let task = jsonObj.tarefas.find(t => t.id == taskDiv.attr("id").split("_")[1])
+
+            // Check if there is a task in this position
+            if (task !== undefined) {
+                // Check if anything changed
+                let concluido = taskDiv.find("input").is(":checked")
+                let conteudo = taskDiv.find("textarea").val()
+
+                if (concluido === task.concluido && conteudo === task.conteudo) {
+                    console.log("Não modificou")
+                    continue
+                }
+
+                // Changed, call backend
+                let changes = {
+                    id: task.id,
+                    lista_tarefa_id: jsonObj.id,
+                    conteudo: conteudo,
+                    concluido: concluido
+                }
+                let data = JSON.stringify(changes)
+                $.ajax({
+                    url: `http://${ip}:5000/atualizar/tarefa`,
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    headers: { Authorization: 'Bearer ' + jwt},
+                    data: data,
+                    success: function(retorno) {
+                        if (retorno.resultado === "ok") {
+                            // Updates the object
+                            for (let key in changes) {
+                                task[key] = changes[key]
+                            }
+                        } else {
+                            alert("Falha ao atualizar tarefa: " + retorno.detalhes)
+                        }
+                    },
+                    error: function(xhr) {
+                        alert("Erro ao atualizar tarefa: " + xhr.responseText)
+                    }
+                })
+            } else {
+                console.log("No task at ID=" + i)
+                console.log(jsonObj)
+            }
+        }
+    }
+}
 
 function createUserMenu(retorno) {
     if (retorno.resultado === "ok") {
@@ -42,9 +297,7 @@ function createUserMenu(retorno) {
         }
 
         let usuario = retorno.detalhes[0]
-        console.log(usuario);
-        console.log(usuario.notas)
-        console.log(usuario.listas_tarefas)
+        console.log(usuario)
 
         // Inserir valores
         $("#userName").text(usuario.nome)
@@ -66,8 +319,8 @@ function openProfile() {
 }
 
 function logout() {
-    // sessionStorage.removeItem("email");
-    sessionStorage.removeItem("JWT");
+    sessionStorage.removeItem("email")
+    sessionStorage.removeItem("JWT")
 
     window.location = `http://${ip}:5000/login`
 }
@@ -81,6 +334,8 @@ function createListedNote(notaObj) {
         </div>`
 
     $("#filesNav").append(div)
+
+    return document.getElementById(`note_${notaObj.id}`)
 }
 
 function createListedChecklist(checklistObj) {
@@ -91,6 +346,8 @@ function createListedChecklist(checklistObj) {
         </div>`
 
     $("#filesNav").append(div)
+
+    return document.getElementById(`checklist_${checklistObj.id}`)
 }
 
 function createNotes(notesObj) {
@@ -109,24 +366,69 @@ function createChecklists(checklistsObj) {
     }
 }
 
-function openFile(divObj) {
-    // Get type of object (note or checklist) and object id
-    let sep = divObj.id.split("_")
-    let objType = sep[0], objId = sep[1]
+function changeEditMenu(objType, obj) {
+    // Hide createFileMenu if needed
+    if ($("#createFileMenu").css("display") === "block") {
+        $("#createFileMenu").css("display", "none")
+    }
 
+    // Show correct menu and change content
+    if (objType === "note") {
+        $("#checklistEditMenu").css("display", "none")
+        $("#noteEditMenu").css("display", "block")
+
+        // Change title and text
+        $("#noteTitleEdit").val(obj.titulo)
+        $("#noteEditArea").val(obj.conteudo)
+    } else {
+        $("#noteEditMenu").css("display", "none")
+        $("#checklistEditMenu").css("display", "block")
+
+        // Change title
+        $("#checklistTitleEdit").val(obj.titulo)
+
+        // Clear text
+        $("#tasks").empty()
+
+        // Add checkboxes
+        for (let i = 0; i < obj.tarefas.length; i++) {
+            let task = obj.tarefas[i]
+            let taskDiv = `<label class="task" id="task_${task.id}">
+            <input ${task.concluido ? "checked" : ""} type="checkbox">
+            <span></span>
+            <textarea spellcheck="false" name="taskEdit" class="taskEdit">${task.conteudo}</textarea>
+            <button class="removeTaskButton" onclick="removeTask(this)">X</button>
+            </label>`
+
+            $("#tasks").append(taskDiv)
+        }
+    }
+}
+
+function openFile(divObj) {
+    // Get obj type and id
+    let sep = divObj.id.split("_")
+    let objType, objId
+    if (sep.length == 2) {
+        objType = sep[0], objId = sep[1]
+    } else {
+        objType = sep[1], objId = sep[2]
+    }
+    
     // Check if this file is already open
     for (let file of openedFiles) {
         if (file.type == objType && file.id == objId) {
-            console.log("Already opened file")
             // Already open, just switch tabs
             switchFile(divObj)
             return
         }
     }
+    
+    // Save current file
+    saveCurrentFile()
 
     // Unselect last selected file
     if (currentFile !== undefined) {
-        console.log("Switching selected file")
         let currentListedFileId = `#listed_${currentFile.type}_${currentFile.id}`
         $(currentListedFileId).removeClass("selectedFile")
     }
@@ -150,47 +452,110 @@ function openFile(divObj) {
     // Add div to openedFiles div
     $("#filesMenu").append(openedFileDiv)
 
-    // Check if create file menu is visible (no files opened yet)
-    if ($("#createFileMenu").css("display") === "block") {
-        // Hide create file menu
-        $("#createFileMenu").css("display", "none")
-    }
-
-    // Show correct type of edit menu
-    if (currentFile !== undefined && currentFile.type !== objType) {
-        $(`#${currentFile.type}EditMenu`).css("display", "none")
-    }
-
-    $(`#${objType}EditMenu`).css("display", "block")
+    // Change UI
+    changeEditMenu(objType, obj)
 
     // Change current file
     currentFile = {type: objType, id: objId}
     openedFiles.push(currentFile)
 }
 
+function switchFile(divObj) {    
+    // Get obj type and id
+    let sep = divObj.id.split("_")
+    let objType, objId
+    if (sep.length == 2) {
+        objType = sep[0], objId = sep[1]
+    } else {
+        objType = sep[1], objId = sep[2]
+    }
+
+    // Check if this isn't the current file
+    if (currentFile.type == objType && currentFile.id == objId) {
+        console.log("Same file")
+        return
+    }
+
+    // Save current file before switching files
+    saveCurrentFile()
+
+    // Get JSON obj
+    let obj
+    if (objType == "checklist") {
+        obj = checklists[objId]
+    } else {
+        obj = notes[objId]
+    }
+
+    // Remove selectedFile class from currentFile
+    $(`#listed_${currentFile.type}_${currentFile.id}`).removeClass("selectedFile")
+    
+    // Add selectedFile class to current file
+    $(`#listed_${objType}_${objId}`).addClass("selectedFile")
+
+    // Change UI
+    changeEditMenu(objType, obj)
+    
+    // Set new currentFile
+    currentFile = {type: objType, id: objId}
+}
+
 function closeFile(divObj) {
     console.log("Closing file:")
-    console.log(divObj)
 
     if (currentFile === divObj) {
+        // Save the current file
 
+        // Remove the openedFile div for this file
+
+        // Open the last file in the openedFiles list
     }
 }
 
-function switchFile(divObj) {
-    console.log("Switching file")
-    // Remove selectedFile class from currentFile
+function removeTask(button) {
+    // Get the task
+    let taskDiv = $(button).parent()
+    let checklist = checklists[currentFile.id]
+    let task = checklist.tarefas.find(t => t.id == taskDiv.attr("id").split("_")[1])
 
-    // Get new JSON obj from this div
+    let data = JSON.stringify({
+        id: task.id,
+        lista_tarefa_id: checklist.id,
+    })
 
-    // Set new currentFile
-
-    // Change edit menu if needed
-
-    // Add selectedFile class to this div
+    // Call backend to delete
+    $.ajax({
+        url: `http://${ip}:5000/deletar/tarefa`,
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        headers: { Authorization: 'Bearer ' + jwt},
+        data: data,
+        success: function(retorno) {
+            if (retorno.resultado === "ok") {
+                // Delete div and object from list
+                taskDiv.remove()
+                checklist.tarefas.splice(checklist.tarefas.findIndex(t => t.id === task.id), 1)
+            } else {
+                alert("Falha ao deletar tarefa: " + retorno.detalhes)
+            }
+        },
+        error: function(xhr) {
+            alert("Erro ao deletar tarefa: " + xhr.responseText)
+        }
+    })
 }
 
 function autoGrow(element) {
     element.style.height = "5px";
     element.style.height = (element.scrollHeight)+"px";
 }
+
+// Save the file every some seconds
+// setInterval(saveCurrentFile, 1500)
+
+// Save current file when the window closes
+$(window).on("beforeunload", function() {
+    saveCurrentFile()
+    return "Salvando arquivo atual..."
+})

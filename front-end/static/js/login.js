@@ -1,5 +1,10 @@
 $(function() {
     ip = sessionStorage.getItem("ip")
+    email = sessionStorage.getItem("email")
+
+    if (email !== undefined) {
+        $("campoEmailLogin").val(email)
+    }
 
     // Remover o JWT
     sessionStorage.removeItem("JWT")

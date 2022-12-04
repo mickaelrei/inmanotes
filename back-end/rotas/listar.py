@@ -54,7 +54,7 @@ def pegarDados(classeNome: str, user_id: int):
     return dados
 
 @app.route("/listar/<string:classe>")
-# @jwt_required()
+@jwt_required()
 def listar(classe: str):
     resposta = {"resultado": "ok"}
 
@@ -66,9 +66,9 @@ def listar(classe: str):
         })
     else:
         # Pega o ID de usuário
-        # email = get_jwt_identity()
-        # user_id = Usuario.query.filter_by(email=email).first().id
-        dados = pegarDados(classe.lower(), 1)
+        email = get_jwt_identity()
+        user_id = Usuario.query.filter_by(email=email).first().id
+        dados = pegarDados(classe.lower(), user_id)
         
         resposta.update({"detalhes": dados})
     
