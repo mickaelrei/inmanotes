@@ -148,13 +148,13 @@ $(function() {
     })
 })
 
-function saveCurrentFile() {
-    if (!currentFile)
+function saveFile(file) {
+    if (!file)
         return
 
-    if (currentFile.type === "note") {
+    if (file.type === "note") {
         // Get JSON obj
-        let id = currentFile.id
+        let id = file.id
         let jsonObj = notes[id]
 
         // Get info
@@ -198,7 +198,7 @@ function saveCurrentFile() {
         })
     } else {
         // Get JSON obj
-        let id = currentFile.id
+        let id = file.id
         let jsonObj = checklists[id]
 
         // Get info
@@ -419,13 +419,14 @@ function openFile(divObj) {
     for (let file of openedFiles) {
         if (file.type == objType && file.id == objId) {
             // Already open, just switch tabs
+            console.log("Already open")
             switchFile(divObj)
             return
         }
     }
     
     // Save current file
-    saveCurrentFile()
+    saveFile(currentFile)
 
     // Unselect last selected file
     if (currentFile !== undefined) {
@@ -477,7 +478,7 @@ function switchFile(divObj) {
     }
 
     // Save current file before switching files
-    saveCurrentFile()
+    saveFile(currentFile)
 
     // Get JSON obj
     let obj
@@ -503,12 +504,45 @@ function switchFile(divObj) {
 function closeFile(divObj) {
     console.log("Closing file:")
 
-    if (currentFile === divObj) {
-        // Save the current file
+    // Get the JSON obj
+    let div = $(divObj).parent()
+    let divId = div.attr("id")
+    console.log("id: " + divId)
+    let sep = divId.split("_")
+    let objType = sep[1], objId = sep[2]
 
-        // Remove the openedFile div for this file
+    let obj
+    if (objType === "note") {
+        obj = notes[objId]
+    } else {
+        obj = checklists[objId]
+    }
 
+    // Save 
+    saveFile({type: objType, id: objId})
+
+    // Remove listed file div and item from list
+    div.remove()
+    openedFiles.pop()
+
+    // Check if this is the only file open
+    if (openedFiles.length === 0) {
+        console.log("closing")
+        // Show createFIleMenu
+        $("#createFileMenu").css("display", "block")
+
+        // Hide file edit menu
+        $("#noteEditMenu").css("display", "none")
+        $("#checklistEditMenu").css("display", "none")
+    }
+
+    if (currentFile.type === objType && currentFile.id === objId) {
         // Open the last file in the openedFiles list
+        let lastFile = openedFiles[openedFiles.length-1]
+        let fileDiv = document.getElementById(`${lastFile.type}_${lastFile.id}`)
+        console.log("Opening last file")
+        console.log(fileDiv)
+        openFile(fileDiv)
     }
 }
 
@@ -556,6 +590,6 @@ function autoGrow(element) {
 
 // Save current file when the window closes
 $(window).on("beforeunload", function() {
-    saveCurrentFile()
+    saveFile(currentFile)
     return "Salvando arquivo atual..."
 })
