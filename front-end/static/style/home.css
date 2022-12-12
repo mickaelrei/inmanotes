@@ -1,0 +1,11 @@
+#abrirRegistrar {
+    background-color: rgb(17, 139, 196);
+    padding: 15px;
+    margin-left: 25px;
+    margin-top: 25px;
+    border-radius: .4em;
+    border: 0px;
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+}

@@ -40,7 +40,7 @@ if __name__ == "__main__":
     db.session.add(usuarioVito)
     
     # Nota
-    nota = Nota(nome="teste", titulo="Testando", conteudo="testando classe nota. Texto base",
+    nota = Nota(titulo="Testando", conteudo="testando classe nota. Texto base",
                 data_criacao=datetime.now(), usuario=usuario1)
     db.session.add(nota)
 
@@ -54,7 +54,7 @@ if __name__ == "__main__":
         "Aveia",
         "Whey"
     ]
-    lista_tarefa_compras = ListaTarefa(titulo="Lista de compras", nome="compras", usuario=usuario1, data_criacao=datetime.now())
+    lista_tarefa_compras = ListaTarefa(titulo="Lista de compras", usuario=usuario1, data_criacao=datetime.now())
     db.session.add(lista_tarefa_compras)
 
     for compra in compras:
@@ -62,7 +62,7 @@ if __name__ == "__main__":
         db.session.add(tarefa)
 
     # Lista 2: atividades
-    lista_tarefa_atividades = ListaTarefa(titulo="Lista de Atividades", nome="atividades", usuario=usuario1, data_criacao=datetime.now())
+    lista_tarefa_atividades = ListaTarefa(titulo="Lista de Atividades", usuario=usuario1, data_criacao=datetime.now())
     db.session.add(lista_tarefa_atividades)
 
     atividades = [

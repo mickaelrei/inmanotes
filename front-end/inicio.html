@@ -42,14 +42,6 @@
 
         <!-- Divs pra cada arquivo contendo ícone e nome -->
         <div class="filesNav" id="filesNav">
-            <!-- <div class="listedNote" onclick="openFile(this)">
-                <img src="static/img/note_icon.png" alt="" class="fileIcon">
-                <p class="listedFileName">nota_1</p>
-            </div>
-            <div class="listedChecklist" onclick="openFile(this)">
-                <img src="static/img/checklist_icon.png" alt="" class="fileIcon">
-                <p class="listedFileName">lista_tarefa_1</p>
-            </div> -->
         </div>
     </div>
 
@@ -67,16 +59,6 @@
         
         <!-- Div que contém uma div para cada arquivo atualmente aberto, com ícone, nome e X para fechar -->
         <div id="filesMenu">
-            <!-- <div class="openedFile selectedFile" onclick="switchFile(this)">
-                <img src="static/img/note_icon.png" alt="" class="openedFileIcon">
-                <p class="fileName">nota_1</p>
-                <button class="fileCloseButton" onclick="closeFile(this)">X</button>
-            </div>
-            <div class="openedFile" onclick="switchFile(this)">
-                <img src="static/img/note_icon.png" alt="" class="openedFileIcon">
-                <p class="fileName">nota_1_metas_2023</p>
-                <button class="fileCloseButton" onclick="closeFile(this)">X</button>
-            </div> -->
         </div>
 
         <!-- Div com botões pra criar novas notas ou listas de tarefa, que desaperece quando tem pelo menos
@@ -99,32 +81,11 @@
         </div>
 
         <!-- Div que contém edição do arquivo atualmente aberto, que desaparece quando não tem nenhum arquivo
-             aberto (POSSIVELMENTE MAIS FACIL E ORGANIZADO FAZER UM DIV PADRÃO PRA NOTA E UM PRA LISTA DE TAREFA) -->
+             aberto -->
         <div id="checklistEditMenu">
             <textarea spellcheck="false" onload="autoGrow(this)" oninput="autoGrow(this)" name="checklistTitleEdit" id="checklistTitleEdit">Lista de compras</textarea>
             <div id="checklistEditArea">
                 <div id="tasks">
-                    <label class="task">
-                        <input checked type="checkbox">
-                        <span></span>
-                        <textarea spellcheck="false" name="taskEdit" id="taskEdit" class="taskEdit">Banana</textarea>
-                        <button class="removeTaskButton" onclick="removeTask(this)"></button>
-                    </label>
-                    <label class="task">
-                        <input type="checkbox">
-                        <span></span>
-                        <textarea spellcheck="false" name="taskEdit" id="taskEdit" class="taskEdit">Leite</textarea>
-                    </label>
-                    <label class="task">
-                        <input type="checkbox">
-                        <span></span>
-                        <textarea spellcheck="false" name="taskEdit" id="taskEdit" class="taskEdit">Aveia</textarea>
-                    </label>
-                    <label class="task">
-                        <input checked type="checkbox">
-                        <span></span>
-                        <textarea spellcheck="false" name="taskEdit" id="taskEdit" class="taskEdit">Corote</textarea>
-                    </label>
                 </div>
                 <button id="newTask">+</button>
             </div>

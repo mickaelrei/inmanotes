@@ -5,7 +5,6 @@ title InMaNotes
 
 class Nota {
   +DateTime data_criacao
-  +String nome
   +String titulo
   +String conteudo
   +Usuario usuario

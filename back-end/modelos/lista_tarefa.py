@@ -4,7 +4,6 @@ from modelos.usuario import *
 
 class ListaTarefa(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(254), nullable=False)
     titulo = db.Column(db.String(254), nullable=False)
     tarefas = db.relationship("Tarefa", backref="lista_tarefa")
     data_criacao = db.Column(db.DateTime, nullable=False)
@@ -23,7 +22,6 @@ class ListaTarefa(db.Model):
         obj = {
             "id": self.id,
             "titulo": self.titulo,
-            "nome": self.nome,
             "data_criacao": self.data_criacao,
             "usuario_id": self.usuario_id
         }

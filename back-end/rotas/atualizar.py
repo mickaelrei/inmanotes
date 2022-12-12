@@ -17,7 +17,6 @@ classes = {
 
 campos_modificaveis = {
     "nota": [
-        "nome",
         "titulo",
         "conteudo"
     ],
@@ -28,7 +27,6 @@ campos_modificaveis = {
     ],
     "listatarefa": [
         "titulo",
-        "nome"
     ],
     "cargo": [],
     "usuario": [

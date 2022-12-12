@@ -17,7 +17,6 @@ classes = {
 
 camposObrigatorios = {
     "nota": [
-        "nome",
         "titulo",
         "conteudo",
     ],
@@ -27,7 +26,6 @@ camposObrigatorios = {
     ],
     "listatarefa": [
         "titulo",
-        "nome",
     ],
     "cargo": [
         "nome",

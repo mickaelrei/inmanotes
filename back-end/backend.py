@@ -7,7 +7,8 @@ from rotas import *
 
 @app.route("/")
 def home():
-    return "Mickael e Cauã. IP: 191.52.7.72:5000<br>Backend operante. Link para repositório: <a href='https://github.com/mickaelrei/inmanotes' target='_blank'>link</a>\n"      
+    return render_template("home.html")
+    # return "Mickael e Cauã. IP: 191.52.7.72:5000<br>Backend operante. Link para repositório: <a href='https://github.com/mickaelrei/inmanotes' target='_blank'>link</a>\n"
 
 @app.route("/login")
 def login():

@@ -188,6 +188,10 @@ function saveFile(file) {
                     for (let key in changes) {
                         jsonObj[key] = changes[key]
                     }
+
+                    // Update listedFile and openedFile
+                    $(`#note_${id}`).find("p").text(titulo)
+                    $(`#listed_note_${id}`).find("p").text(titulo)
                 } else {
                     alert("Falha ao atualizar: " + retorno.detalhes)
                 }
@@ -225,6 +229,10 @@ function saveFile(file) {
                         for (let key in changes) {
                             jsonObj[key] = changes[key]
                         }
+
+                        // Update title on listed and opened file divs
+                        $(`#checklist_${id}`).find("p").text(titulo)
+                        $(`#listed_checklist_${id}`).find("p").text(titulo)
                     } else {
                         alert("Falha ao atualizar lista de tarefa: " + retorno.detalhes)
                     }
@@ -330,7 +338,7 @@ function createListedNote(notaObj) {
     // Criar div padrão de nota
     div = `<div class="listedNote" id="note_${notaObj.id}" onclick="openFile(this)">
             <img src="static/img/note_icon.png" alt="Note" class="fileIcon"/>
-            <p class="listedFileName">${notaObj.nome}</p>
+            <p class="listedFileName">${notaObj.titulo}</p>
         </div>`
 
     $("#filesNav").append(div)
@@ -342,7 +350,7 @@ function createListedChecklist(checklistObj) {
     // Criar div padrão de lista de tarefa
     div = `<div class="listedChecklist" id="checklist_${checklistObj.id}" onclick="openFile(this)">
             <img src="static/img/checklist_icon.png" alt="Checklist" class="fileIcon"/>
-            <p class="listedFileName">${checklistObj.nome}</p>
+            <p class="listedFileName">${checklistObj.titulo}</p>
         </div>`
 
     $("#filesNav").append(div)
@@ -367,6 +375,7 @@ function createChecklists(checklistsObj) {
 }
 
 function changeEditMenu(objType, obj) {
+    let titulo = obj.titulo
     // Hide createFileMenu if needed
     if ($("#createFileMenu").css("display") === "block") {
         $("#createFileMenu").css("display", "none")
@@ -378,14 +387,14 @@ function changeEditMenu(objType, obj) {
         $("#noteEditMenu").css("display", "block")
 
         // Change title and text
-        $("#noteTitleEdit").val(obj.titulo)
+        $("#noteTitleEdit").val(titulo)
         $("#noteEditArea").val(obj.conteudo)
     } else {
         $("#noteEditMenu").css("display", "none")
         $("#checklistEditMenu").css("display", "block")
 
         // Change title
-        $("#checklistTitleEdit").val(obj.titulo)
+        $("#checklistTitleEdit").val(titulo)
 
         // Clear text
         $("#tasks").empty()
@@ -443,10 +452,10 @@ function openFile(divObj) {
     }
 
     // Create a openedFile div
-    let objName = obj.nome
+    let objName = obj.titulo
     let openedFileDiv = `<div class="openedFile selectedFile" onclick="switchFile(this)" id="listed_${objType}_${objId}">` +
     `<img src="static/img/${objType}_icon.png" alt="" class="openedFileIcon">` +
-    `<p class="fileName">${objName}</p>` +
+    `<p class="fileName">${obj.titulo}</p>` +
     `<button class="fileCloseButton" onclick="closeFile(this)">X</button>` +
     `</div>`
 
@@ -586,7 +595,9 @@ function autoGrow(element) {
 }
 
 // Save the file every some seconds
-// setInterval(saveCurrentFile, 1500)
+setInterval(function() {
+    saveFile(currentFile)
+}, 1500)
 
 // Save current file when the window closes
 $(window).on("beforeunload", function() {
