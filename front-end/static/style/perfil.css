@@ -1,0 +1,138 @@
+body {
+    height: 100%;
+    background-color: rgb(10, 27, 32);
+}
+
+@font-face {
+    font-family: robot_mono;
+    src: url(../fonts/robot_mono.ttf);
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.userInfo {
+    float: left;
+    width: 49.5%;
+    height: 98vh;
+    background-color: rgb(17, 49, 59);
+}
+
+.graphInfo {
+    float: right;
+    width: 49.5%;
+    height: 98vh;
+    font-family: robot_mono;
+    color: white;
+    display: table;
+    background-color: rgb(17, 49, 59);
+}
+
+.graphInfo p {
+    font-size: 30px;
+    text-align:center; 
+    vertical-align: middle;
+    display: table-cell;  
+}
+
+.userImage {
+    height: 25%;
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.userIcon {
+    width: fit-content;
+    height: 100%;
+    left: 50%;
+    background-color: cadetblue;
+    border-radius: 100%;
+}
+
+.editUserIcon {
+    margin-left: 25px;
+    width: 7%;
+}
+
+.editUserIcon:hover {
+    cursor: pointer;
+    filter: contrast(20%);
+}
+
+.userData {
+    height: 50%;
+    width: 100%;
+    color: white;
+    font-family: robot_mono;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.userInfoSection {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+    height: 5%;
+    width: 90%;
+    display: flex;
+    padding-bottom: 5px;
+    border-bottom: 2px solid white;
+}
+
+.userInfoTitle {
+    float: left;
+    margin-right: 7px;
+    width: 4.6vw;
+    font-size: 100%;
+    align-self: center;
+}
+
+.userInfoValue {
+    float: left;
+    margin-right: 10px;
+    font-size: 2vh;
+    align-self: center;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+.editUserInfo {
+    margin-left: auto;
+}
+
+.editUserInfo img {
+    width: 100%;
+    height: 100%;
+    transform: translate(0, -10%);
+}
+
+.editUserInfo:hover {
+    cursor: pointer;
+}
+
+.editUserInfo:hover > img {
+    filter: contrast(20%)
+}
+
+.showPassword {
+    margin-left: auto;
+}
+
+.showPassword img {
+    width: 100%;
+    height: 100%;
+}
+
+.showPassword:hover {
+    cursor: pointer;
+}
+
+.showPassword:hover > img {
+    filter: contrast(20%)
+}

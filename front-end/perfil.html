@@ -5,53 +5,62 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="static/img/icon.png">
+
+    <!-- Logic -->
+    <link rel="stylesheet" href="static/style/perfil.css">
+    <script src="static/js/perfil.js"></script>
+
     <title>Inmanotes</title>
 </head>
 <body>
-    <div class="userInfo">
-        <div class="userImage">
-            <!-- <img> com foto do usuario-->
-            <!-- <button ou div> com icone de mudar foto (abre bgl de selecionar arquivo) -->
+    <div class="container">
+        <div class="userInfo">
+            <div class="userImage">
+                <img class="userIcon" id="userIcon" src="static/img/default_user.png" alt="">
+                <img class="editUserIcon" id="editUserIcon" src="static/img/edit_icon.png" alt="">
+            </div>
+            <div class="userData">
+                <div class="userName userInfoSection">
+                    <div class="userInfoTitle">
+                        Nome:
+                    </div>
+                    <div class="userInfoValue">
+                        Mickael
+                    </div>
+                    <div class="editUserInfo" id="editName">
+                        <img src="static/img/edit_icon.png" alt="">
+                    </div>
+                </div>
+                <div class="userEmail userInfoSection">
+                    <div class="userInfoTitle">
+                        Email:
+                    </div>
+                    <div class="userInfoValue">
+                        mickael.reichert@gmail.com
+                    </div>
+                    <div class="editUserInfo" id="editEmail">
+                        <img src="static/img/edit_icon.png" alt="">
+                    </div>
+                </div>
+                <div class="userPassword userInfoSection">
+                    <div class="userInfoTitle">
+                        Senha:
+                    </div>
+                    <div class="userInfoValue">
+                        ****************
+                    </div>
+                    <div class="showPassword">
+                        <img src="static/img/show_password.png" alt="">
+                    </div>
+                    <div class="editUserInfo" style="margin-left: 10px" id="editPassword">
+                        <img src="static/img/edit_icon.png" alt="">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="userData">
-            <div class="userName">
-                <div class="userInfoTitle">
-                    Nome:
-                </div>
-                <div class="userInfoValue">
-                    Mickael
-                </div>
-                <div class="editUserInfo" id="editName">
-                    Editar nome
-                </div>
-            </div>
-            <div class="userEmail">
-                <div class="userInfoTitle">
-                    Email:
-                </div>
-                <div class="userInfoValue">
-                    mickael.reichert@gmail.com
-                </div>
-                <div class="editUserInfo" id="editEmail">
-                    Editar email
-                </div>
-            </div>
-            <div class="userPassword">
-                <div class="userInfoTitle">
-                    Senha:
-                </div>
-                <div class="userInfoValue">
-                    ****************
-                </div>
-                <div class="showPassword">
-                    Show password
-                </div>
-                <div class="editUserInfo" id="editPassword">
-                    Editar senha
-                </div>
-            </div>
+        <div class="graphInfo">
+            <p>Gráfico em breve!</p>
         </div>
     </div>
-    <div class="graphInfo"></div>
 </body>
 </html>
