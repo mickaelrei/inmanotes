@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="static/img/icon.png">
 
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
     <!-- Logic -->
     <link rel="stylesheet" href="static/style/perfil.css">
     <script src="static/js/perfil.js"></script>
@@ -20,36 +23,36 @@
                 <img class="editUserIcon" id="editUserIcon" src="static/img/edit_icon.png" alt="">
             </div>
             <div class="userData">
-                <div class="userName userInfoSection">
+                <div class="userInfoSection">
                     <div class="userInfoTitle">
                         Nome:
                     </div>
-                    <div class="userInfoValue">
-                        Mickael
+                    <div class="userInfoValue" id="userName">
+                        Maria Oliveira
                     </div>
                     <div class="editUserInfo" id="editName">
                         <img src="static/img/edit_icon.png" alt="">
                     </div>
                 </div>
-                <div class="userEmail userInfoSection">
+                <div class="userInfoSection">
                     <div class="userInfoTitle">
                         Email:
                     </div>
-                    <div class="userInfoValue">
-                        mickael.reichert@gmail.com
+                    <div class="userInfoValue" id="userEmail">
+                        molive@gmail.com
                     </div>
                     <div class="editUserInfo" id="editEmail">
                         <img src="static/img/edit_icon.png" alt="">
                     </div>
                 </div>
-                <div class="userPassword userInfoSection">
+                <div class="userInfoSection">
                     <div class="userInfoTitle">
                         Senha:
                     </div>
-                    <div class="userInfoValue">
-                        ****************
+                    <div class="userInfoValue" id="userPassword">
+                        *********
                     </div>
-                    <div class="showPassword">
+                    <div class="showPassword" onclick="togglePasswordVisibility()">
                         <img src="static/img/show_password.png" alt="">
                     </div>
                     <div class="editUserInfo" style="margin-left: 10px" id="editPassword">

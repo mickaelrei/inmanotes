@@ -19,7 +19,6 @@ $(function() {
     $("#createNote").on("click", function() {
         // Cria um objeto nota com valores padrões
         let nota = JSON.stringify({
-            nome: "sem_titulo",
             titulo: "Nova nota",
             conteudo: "Digite algo!"
         })
@@ -55,7 +54,6 @@ $(function() {
     $("#createChecklist").on("click", function() {
         // Cria um objeto lista de tarefa com valores padrões
         let checklist = JSON.stringify({
-            nome: "sem_titulo",
             titulo: "Nova lista de tarefas",
         })
 
@@ -90,7 +88,7 @@ $(function() {
     $("#newTask").on("click", function() {
         // Guarda o ID da lista de tarefa aberta
         let id = currentFile.id
-        console.log("Adding task on checklist ID=" + id + " | Name=" + checklists[id].nome)
+        console.log("Adding task on checklist ID=" + id + " | Name=" + checklists[id].titulo)
 
         // Cria uma tarefa vazia
         let tarefa = JSON.stringify({

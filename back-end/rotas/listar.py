@@ -49,7 +49,9 @@ def pegarDados(classeNome: str, user_id: int):
                 dado["senha"] = decifrar(dado["senha"])
         else:
             # Pega o objeto deste usuário
-            dados = [Usuario.query.filter_by(id=user_id).first().json()]
+            usuario = Usuario.query.filter_by(id=user_id).first().json()
+            usuario["senha"] = decifrar(usuario["senha"])
+            dados = [usuario]
 
     return dados
 

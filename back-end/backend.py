@@ -22,4 +22,8 @@ def registrar():
 def inicio():
     return render_template("inicio.html")
 
+@app.route("/perfil")
+def perfil():
+    return render_template("perfil.html")
+
 app.run(debug=True, host="0.0.0.0")
